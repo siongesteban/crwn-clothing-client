@@ -1,3 +1,5 @@
 import React from 'react';
 
-export const App: React.FC<{}> = () => <div>Hola!</div>;
+import { HomePage } from './HomePage';
+
+export const App: React.FC<{}> = () => <HomePage />;
