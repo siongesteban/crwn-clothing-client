@@ -3,6 +3,7 @@ import React from 'react';
 import { Button, Input } from '../../common';
 
 import { ObjectSet } from '../../../types';
+import { signInWithGoogle } from '../../../firebase';
 
 import './signin.style.scss';
 
@@ -62,8 +63,12 @@ export class Signin extends React.Component<SigninProps, SigninState> {
             type="password"
             value={password}
           />
-
-          <Button type="submit">Sign In</Button>
+          <div className="buttons">
+            <Button type="submit">Sign In</Button>
+            <Button googleSignin={true} onClick={signInWithGoogle}>
+              Sign in with Google
+            </Button>
+          </div>
         </form>
       </div>
     );

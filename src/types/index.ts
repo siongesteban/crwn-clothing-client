@@ -23,3 +23,14 @@ export type InputChangeHandler = (
 export type ObjectSet<T = { [key: string]: any }> = {
   [key in keyof T]: T[keyof T]
 };
+
+export type FirebaseUser = firebase.User | null;
+
+export interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  photoURL: string;
+}

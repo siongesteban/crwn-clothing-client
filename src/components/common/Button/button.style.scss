@@ -1,3 +1,5 @@
+$google: #4285f4;
+
 .button {
   background-color: black;
   border: none;
@@ -18,5 +20,15 @@
     background-color: white;
     border: 1px solid black;
     color: black;
+  }
+
+  &.google-signin {
+    background: $google;
+
+    &:hover {
+      background: darken($google, 10%);
+      border: none;
+      color: #fff;
+    }
   }
 }
