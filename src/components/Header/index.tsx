@@ -27,7 +27,7 @@ export const Header: React.FC = () => (
     </Link>
     <div className="options">
       {items.map(({ path, text }: HeaderItem) => (
-        <Link className="option" to={path}>
+        <Link key={path} className="option" to={path}>
           {text}
         </Link>
       ))}
