@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Directory } from '../../components/Directory';
 
-import './homepage.style.scss';
+import './home.style.scss';
 
-export const HomePage: React.FC = () => (
+export const Home: React.FC = () => (
   <div className="homepage">
     <Directory />
   </div>
