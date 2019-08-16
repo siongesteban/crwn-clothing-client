@@ -17,7 +17,7 @@ export type Collection = Pick<Section, 'id' | 'title'> & {
 };
 
 export type InputChangeHandler = (
-  e: React.ChangeEvent<HTMLInputElement>
+  e: React.ChangeEvent<HTMLInputElement>,
 ) => void;
 
 export type ObjectSet<T = { [key: string]: any }> = {
@@ -27,10 +27,18 @@ export type ObjectSet<T = { [key: string]: any }> = {
 export type FirebaseUser = firebase.User | null;
 
 export interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
+  id?: string;
+  displayName: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
-  phoneNumber: string;
-  photoURL: string;
+  phoneNumber?: string;
 }
+
+export interface SigninCredentials {
+  username?: string;
+  email?: string;
+  password: string;
+}
+
+export type AuthCallback<T = User> = (user?: T) => void;

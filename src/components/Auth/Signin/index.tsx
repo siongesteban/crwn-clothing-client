@@ -3,9 +3,9 @@ import React from 'react';
 import { Button, Input } from '../../common';
 
 import { ObjectSet } from '../../../types';
-import { signInWithGoogle } from '../../../firebase';
 
 import './signin.style.scss';
+import { FirebaseAuth } from '../../../services/auth';
 
 interface SigninProps {}
 
@@ -17,6 +17,8 @@ interface SigninState {
 type StateSet = ObjectSet<SigninState>;
 
 export class Signin extends React.Component<SigninProps, SigninState> {
+  auth = FirebaseAuth.getInstance();
+
   constructor(props: SigninProps) {
     super(props);
 
@@ -25,6 +27,10 @@ export class Signin extends React.Component<SigninProps, SigninState> {
       password: '',
     };
   }
+
+  handleSignInWithGoogleClick = async () => {
+    await this.auth.signIn();
+  };
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
@@ -65,7 +71,10 @@ export class Signin extends React.Component<SigninProps, SigninState> {
           />
           <div className="buttons">
             <Button type="submit">Sign In</Button>
-            <Button googleSignin={true} onClick={signInWithGoogle}>
+            <Button
+              googleSignin={true}
+              onClick={this.handleSignInWithGoogleClick}
+            >
               Sign in with Google
             </Button>
           </div>

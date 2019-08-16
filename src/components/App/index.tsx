@@ -6,8 +6,8 @@ import { Home } from '../../pages/Home';
 import { Shop } from '../../pages/Shop';
 import { Auth } from '../../pages/Auth';
 
-import { auth } from '../../firebase';
-import { FirebaseUser, User } from '../../types';
+import { FirebaseAuth } from '../../services/auth';
+import { User } from '../../types';
 
 import './app.style.scss';
 
@@ -18,10 +18,9 @@ interface AppState {
 }
 
 export class App extends React.Component<AppProps, AppState> {
-  constructor(
-    props: AppProps,
-    private unsubscribeFromAuth: firebase.Unsubscribe,
-  ) {
+  auth = FirebaseAuth.getInstance();
+
+  constructor(props: AppProps) {
     super(props);
 
     this.state = {
@@ -29,29 +28,14 @@ export class App extends React.Component<AppProps, AppState> {
     };
   }
 
-  componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged((user: FirebaseUser) => {
-      let loggedInUser: User | undefined;
-
-      if (user) {
-        const { displayName, email, phoneNumber, photoURL, uid } = user;
-        loggedInUser = {
-          ...(uid && { id: uid }),
-          ...(displayName && { firstName: displayName, lastName: '' }),
-          ...(email && { email }),
-          ...(phoneNumber && { phoneNumber }),
-          ...(photoURL && { photoURL }),
-        } as User;
-      }
-
-      this.setState({
-        user: loggedInUser,
-      });
+  async componentDidMount() {
+    await this.auth.authenticate(user => {
+      this.setState({ user });
     });
   }
 
   componentWillUnmount() {
-    this.unsubscribeFromAuth();
+    this.auth.unsubscribe();
   }
 
   render() {

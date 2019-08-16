@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 
 import { Option } from './Option';
 
-import { auth } from '../../firebase';
-
 import { ReactComponent as Logo } from '../../assets/crwn_clothing_logo.svg';
 import './header.style.scss';
+import { FirebaseAuth } from '../../services/auth';
 
 interface HeaderItem {
   path: string;
@@ -29,8 +28,8 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
-  const handleSignOut = () => {
-    auth.signOut();
+  const handleSignOut = async () => {
+    await FirebaseAuth.getInstance().signOut();
   };
 
   return (
