@@ -1,13 +1,10 @@
 import uuid from 'uuid/v4';
 
+import { Model } from '../types';
 import { firebase } from './clients';
 import { BaseService } from './BaseService';
 
-interface BaseDoc {
-  uid?: string;
-}
-
-export class FirestoreService<T extends BaseDoc> extends BaseService<T> {
+export class FirestoreService<T extends Model> extends BaseService<T> {
   protected client: firebase.firestore.Firestore;
   private collection: firebase.firestore.CollectionReference;
 
@@ -43,7 +40,11 @@ export class FirestoreService<T extends BaseDoc> extends BaseService<T> {
 
       const doc = this.collection.doc(id);
 
-      await doc.set({ id, ...data });
+      await doc.set({
+        id,
+        createdAt: new Date(),
+        ...data,
+      });
 
       return data;
     } catch (e) {
