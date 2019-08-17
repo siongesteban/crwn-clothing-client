@@ -3,12 +3,20 @@ import { firebase } from '../clients';
 import { BaseAuth } from './BaseAuth';
 import { UserService } from '../UserService';
 
+enum AuthProvider {
+  GOOGLE,
+}
+
+interface Provider {
+  [key: number]: firebase.auth.AuthProvider;
+}
+
 type Client = firebase.auth.Auth;
 
 export class FirebaseAuth extends BaseAuth<Client, void> {
   private static instance: FirebaseAuth;
   protected client: Client;
-  private signInWithProvider: () => Promise<firebase.auth.UserCredential>;
+  private provider: Provider;
   private unsubscribeFromAuth: firebase.Unsubscribe | undefined;
 
   private userService = UserService.getInstance();
@@ -16,12 +24,11 @@ export class FirebaseAuth extends BaseAuth<Client, void> {
   constructor() {
     super();
 
-    const provider = new firebase.auth.GoogleAuthProvider().setCustomParameters(
-      { prompt: 'select_account' },
-    );
+    this.provider = {
+      [AuthProvider.GOOGLE]: this.createAuthProvider(AuthProvider.GOOGLE),
+    };
 
     this.client = firebase.auth();
-    this.signInWithProvider = () => this.client.signInWithPopup(provider);
   }
 
   static getInstance(): FirebaseAuth {
@@ -67,7 +74,7 @@ export class FirebaseAuth extends BaseAuth<Client, void> {
 
   async signIn(): Promise<void> {
     return new Promise(resolve => {
-      this.signInWithProvider();
+      this.signInWithGoogle();
       resolve();
     });
   }
@@ -80,5 +87,24 @@ export class FirebaseAuth extends BaseAuth<Client, void> {
     const { unsubscribeFromAuth } = this;
 
     unsubscribeFromAuth && unsubscribeFromAuth();
+  }
+
+  private signInWithGoogle() {
+    const { client, provider } = this;
+
+    client.signInWithPopup(provider[AuthProvider.GOOGLE]);
+  }
+
+  private createAuthProvider(
+    providerName: AuthProvider,
+  ): firebase.auth.AuthProvider {
+    switch (providerName) {
+      case AuthProvider.GOOGLE:
+        return new firebase.auth.GoogleAuthProvider().setCustomParameters({
+          prompt: 'select_account',
+        });
+      default:
+        return new firebase.auth.EmailAuthProvider();
+    }
   }
 }
