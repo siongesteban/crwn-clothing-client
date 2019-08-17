@@ -6,7 +6,7 @@ import { Home } from '../../pages/Home';
 import { Shop } from '../../pages/Shop';
 import { Auth } from '../../pages/Auth';
 
-import { FirebaseAuth } from '../../services/auth';
+import { FirebaseAuth, UserService } from '../../services';
 import { User } from '../../types';
 
 import './app.style.scss';
@@ -19,6 +19,7 @@ interface AppState {
 
 export class App extends React.Component<AppProps, AppState> {
   auth = FirebaseAuth.getInstance();
+  userService = UserService.getInstance();
 
   constructor(props: AppProps) {
     super(props);
@@ -29,8 +30,8 @@ export class App extends React.Component<AppProps, AppState> {
   }
 
   async componentDidMount() {
-    await this.auth.authenticate(user => {
-      this.setState({ user });
+    await this.auth.authenticate(authUser => {
+      this.setState({ user: authUser });
     });
   }
 

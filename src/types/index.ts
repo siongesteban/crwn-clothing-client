@@ -27,12 +27,13 @@ export type ObjectSet<T = { [key: string]: any }> = {
 export type FirebaseUser = firebase.User | null;
 
 export interface User {
-  id?: string;
   displayName: string;
-  firstName?: string;
-  lastName?: string;
   email: string;
+  firstName?: string;
+  id?: string;
+  lastName?: string;
   phoneNumber?: string;
+  uid?: string;
 }
 
 export interface SigninCredentials {

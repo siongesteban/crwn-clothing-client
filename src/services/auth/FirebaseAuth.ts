@@ -1,6 +1,7 @@
-import { BaseAuth } from './BaseAuth';
 import { User, FirebaseUser, AuthCallback } from '../../types';
-import { firebase } from '../clients/firebase';
+import { firebase } from '../clients';
+import { BaseAuth } from './BaseAuth';
+import { UserService } from '../UserService';
 
 type Client = firebase.auth.Auth;
 
@@ -9,6 +10,8 @@ export class FirebaseAuth extends BaseAuth<Client, void> {
   protected client: Client;
   private signInWithProvider: () => Promise<firebase.auth.UserCredential>;
   private unsubscribeFromAuth: firebase.Unsubscribe | undefined;
+
+  private userService = UserService.getInstance();
 
   constructor() {
     super();
@@ -34,18 +37,24 @@ export class FirebaseAuth extends BaseAuth<Client, void> {
       let user: User | undefined;
 
       this.unsubscribeFromAuth = this.client.onAuthStateChanged(
-        (firebaseUser: FirebaseUser) => {
+        async (firebaseUser: FirebaseUser) => {
           if (!firebaseUser) {
             user = undefined;
           } else {
             const { displayName, email, phoneNumber, uid } = firebaseUser;
 
             user = {
-              ...(uid && { id: uid }),
+              ...(uid && { uid }),
               ...(displayName && { firstName: displayName, lastName: '' }),
               ...(email && { email }),
               ...(phoneNumber && { phoneNumber }),
             } as User;
+
+            const userFromDB = await this.userService.get(uid);
+
+            if (!userFromDB) {
+              await this.userService.create(user);
+            }
           }
 
           callback(user);
