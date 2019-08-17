@@ -24,3 +24,7 @@ export const Input: React.FC<InputProps> = ({
     ) : null}
   </div>
 );
+
+Input.defaultProps = {
+  type: 'text',
+};
