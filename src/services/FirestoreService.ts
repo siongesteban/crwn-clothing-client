@@ -11,7 +11,7 @@ export class FirestoreService<T extends BaseDoc> extends BaseService<T> {
   protected client: firebase.firestore.Firestore;
   private collection: firebase.firestore.CollectionReference;
 
-  constructor(private path: string) {
+  constructor(path: string) {
     super();
 
     this.client = firebase.firestore();
@@ -20,14 +20,14 @@ export class FirestoreService<T extends BaseDoc> extends BaseService<T> {
 
   async get(id: string) {
     try {
-      const ref = this.getRef(`${this.path}/${id}`);
-      const snapshot = await ref.get();
+      const ref = this.collection.doc(id);
+      const doc = await ref.get();
 
-      if (!snapshot.exists) {
+      if (!doc.exists) {
         return undefined;
       }
 
-      const result = snapshot.data() as T;
+      const result = doc.data() as T;
 
       return result;
     } catch (e) {
@@ -41,15 +41,13 @@ export class FirestoreService<T extends BaseDoc> extends BaseService<T> {
 
       delete data.uid;
 
-      await this.collection.doc(id).set({ id, ...data });
+      const doc = this.collection.doc(id);
+
+      await doc.set({ id, ...data });
 
       return data;
     } catch (e) {
       console.error('@FirestoreService::create', e.message);
     }
-  }
-
-  private getRef(path: string): firebase.firestore.DocumentReference {
-    return this.client.doc(path);
   }
 }
