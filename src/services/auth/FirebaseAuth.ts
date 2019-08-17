@@ -1,4 +1,4 @@
-import { User, FirebaseUser, AuthCallback } from '../../types';
+import { User, FirebaseUser, AuthCallback, AuthCredentials } from '../../types';
 import { firebase } from '../clients';
 import { BaseAuth } from './BaseAuth';
 import { UserService } from '../UserService';
@@ -48,20 +48,21 @@ export class FirebaseAuth extends BaseAuth<Client, void> {
           if (!firebaseUser) {
             user = undefined;
           } else {
-            const { displayName, email, phoneNumber, uid } = firebaseUser;
+            const { displayName, email, uid } = firebaseUser;
 
             user = {
-              ...(uid && { uid }),
-              ...(displayName && { firstName: displayName, lastName: '' }),
-              ...(email && { email }),
-              ...(phoneNumber && { phoneNumber }),
+              uid,
+              displayName,
+              email,
             } as User;
 
-            const userFromDB = await this.userService.get(uid);
+            let userFromDB = await this.userService.get(uid);
 
             if (!userFromDB) {
-              await this.userService.create(user);
+              userFromDB = await this.userService.create(user);
             }
+
+            user = userFromDB;
           }
 
           callback(user);
@@ -77,6 +78,24 @@ export class FirebaseAuth extends BaseAuth<Client, void> {
       this.signInWithGoogle();
       resolve();
     });
+  }
+
+  async signUp(data: User & AuthCredentials) {
+    try {
+      const { displayName, email, password } = data;
+      const result = await this.client.createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+      const user = result.user as User;
+      await this.userService.create({
+        email,
+        displayName,
+        uid: user.uid,
+      });
+    } catch (e) {
+      console.error('@FirebaseAuth::signUp', e.message);
+    }
   }
 
   async signOut(): Promise<void> {
