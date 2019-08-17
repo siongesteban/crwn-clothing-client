@@ -29,7 +29,7 @@ export class Signin extends React.Component<SigninProps, SigninState> {
   }
 
   handleSignInWithGoogleClick = async () => {
-    await this.auth.signIn();
+    await this.auth.signInWithGoogle();
   };
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,8 +38,10 @@ export class Signin extends React.Component<SigninProps, SigninState> {
     this.setState({ [name]: value } as StateSet);
   };
 
-  handleSubmit = (e: React.FormEvent) => {
+  handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    await this.auth.signIn(this.state);
 
     this.setState({ email: '', password: '' });
   };
@@ -52,7 +54,7 @@ export class Signin extends React.Component<SigninProps, SigninState> {
         <h2 className="title">I already have an account</h2>
         <span>Sign in with your email and password</span>
 
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <Input
             handleChange={this.handleChange}
             label="Email"

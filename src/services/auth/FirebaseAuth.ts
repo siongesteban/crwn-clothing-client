@@ -73,11 +73,13 @@ export class FirebaseAuth extends BaseAuth<Client, void> {
     });
   }
 
-  async signIn(): Promise<void> {
-    return new Promise(resolve => {
-      this.signInWithGoogle();
-      resolve();
-    });
+  async signIn(credentials: AuthCredentials): Promise<void> {
+    try {
+      const { email, password } = credentials;
+      await this.client.signInWithEmailAndPassword(email, password);
+    } catch (e) {
+      console.error('@FirebaseAuth::signIn', e.message);
+    }
   }
 
   async signUp(data: User & AuthCredentials) {
@@ -108,7 +110,7 @@ export class FirebaseAuth extends BaseAuth<Client, void> {
     unsubscribeFromAuth && unsubscribeFromAuth();
   }
 
-  private signInWithGoogle() {
+  signInWithGoogle() {
     const { client, provider } = this;
 
     client.signInWithPopup(provider[AuthProvider.GOOGLE]);

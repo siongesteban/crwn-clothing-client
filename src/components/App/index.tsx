@@ -31,7 +31,6 @@ export class App extends React.Component<AppProps, AppState> {
 
   async componentDidMount() {
     await this.auth.authenticate(authUser => {
-      console.log('user:', authUser);
       this.setState({ user: authUser });
     });
   }
