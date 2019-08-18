@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { Header } from '../Header';
 import { Home } from '../../pages/Home';
@@ -7,17 +8,21 @@ import { Shop } from '../../pages/Shop';
 import { Auth } from '../../pages/Auth';
 
 import { FirebaseAuth, UserService } from '../../services';
-import { User } from '../../types';
+import { User, RootState, SampleState } from '../../types';
+import { updateSampleName } from '../../actions';
 
 import './app.style.scss';
 
-interface AppProps {}
+interface AppProps {
+  sample: SampleState;
+  updateSampleName: typeof updateSampleName;
+}
 
 interface AppState {
   user?: User;
 }
 
-export class App extends React.Component<AppProps, AppState> {
+class _App extends React.Component<AppProps, AppState> {
   auth = FirebaseAuth.getInstance();
   userService = UserService.getInstance();
 
@@ -30,6 +35,12 @@ export class App extends React.Component<AppProps, AppState> {
   }
 
   async componentDidMount() {
+    const { sample, updateSampleName } = this.props;
+
+    console.log('sample state:', sample);
+
+    updateSampleName('Jane');
+
     await this.auth.authenticate(authUser => {
       this.setState({ user: authUser });
     });
@@ -52,3 +63,13 @@ export class App extends React.Component<AppProps, AppState> {
     );
   }
 }
+
+const mapStateToProps = (state: RootState) => ({
+  sample: state.sample,
+});
+const dispatchProps = { updateSampleName };
+
+export const App = connect(
+  mapStateToProps,
+  dispatchProps,
+)(_App);

@@ -12,9 +12,13 @@
     "node-sass": "^4.12.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
+    "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
     "typescript": "3.5.3",
+    "utility-types": "^3.7.0",
     "uuid": "^3.3.2"
   },
   "scripts": {
@@ -40,12 +44,16 @@
   },
   "devDependencies": {
     "@types/classnames": "^2.2.9",
+    "@types/react-redux": "^7.1.2",
     "@types/react-router-dom": "^4.3.4",
+    "@types/redux": "^3.6.0",
+    "@types/redux-logger": "^3.0.7",
     "@types/uuid": "^3.4.5",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
     "react-redux-typescript-scripts": "^1.6.2",
+    "redux-devtools-extension": "^2.13.8",
     "tslint": "^5.18.0",
     "tslint-react": "^4.0.0"
   }

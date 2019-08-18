@@ -1,3 +1,5 @@
+import { DeepReadonly } from 'utility-types';
+
 export interface Item {
   id: number;
   imageURL: string;
@@ -43,3 +45,39 @@ export interface AuthCredentials {
 }
 
 export type AuthCallback<T = User> = (user?: T) => void;
+
+export interface Job {
+  title: string;
+  description: string;
+}
+
+export type SampleState = DeepReadonly<{
+  name: string;
+  age: number;
+  job: Job;
+}>;
+
+export interface RootState {
+  sample: SampleState;
+}
+
+export enum ActionType {
+  UPDATE_SAMPLE_NAME = '@@sample/UPDATE_NAME',
+  UPDATE_SAMPLE_AGE = '@@sample/UPDATE_AGE',
+}
+
+export interface UpdateSampleNameAction {
+  type: ActionType.UPDATE_SAMPLE_NAME;
+  payload: {
+    name: string;
+  };
+}
+
+export interface UpdateSampleAgeAction {
+  type: ActionType.UPDATE_SAMPLE_AGE;
+  payload: {
+    age: number;
+  };
+}
+
+export type Action = UpdateSampleNameAction | UpdateSampleAgeAction;
