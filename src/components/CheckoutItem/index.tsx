@@ -2,21 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { CartItem } from '../../types';
-import { removeItemFromCart } from '../../actions';
+import { clearItemFromCart } from '../../actions';
 
 import './checkout-item.style.scss';
 
 interface CheckoutItemProps {
   item: CartItem;
-  removeItemFromCart: typeof removeItemFromCart;
+  clearItemFromCart: typeof clearItemFromCart;
 }
 
 const C: React.FC<CheckoutItemProps> = ({
-  removeItemFromCart,
+  clearItemFromCart,
   item: { id, name, imageURL, quantity, price },
 }) => {
   const handleRemoveClick = () => {
-    removeItemFromCart(id);
+    clearItemFromCart(id);
   };
 
   return (
@@ -34,7 +34,7 @@ const C: React.FC<CheckoutItemProps> = ({
   );
 };
 
-const dispatchProps = { removeItemFromCart };
+const dispatchProps = { clearItemFromCart };
 
 const CConnected = connect(
   undefined,

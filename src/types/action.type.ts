@@ -8,8 +8,8 @@ export enum ActionType {
 
   // cart
   ADD_ITEM_TO_CART = '@@cart/ADD_ITEM',
+  CLEAR_ITEM_FROM_CART = '@@cart/CLEAR_ITEM',
   TOGGLE_CART = '@@cart/TOGGLE',
-  REMOVE_ITEM_FROM_CART = '@@cart/REMOVE_ITEM',
 
   // user
   SET_USER = '@@user/SET',
@@ -47,8 +47,8 @@ export interface AddItemToCart {
   };
 }
 
-export interface RemoveItemFromCart {
-  type: ActionType.REMOVE_ITEM_FROM_CART;
+export interface ClearItemFromCart {
+  type: ActionType.CLEAR_ITEM_FROM_CART;
   payload: {
     id: CartItem['id'];
   };
@@ -56,7 +56,7 @@ export interface RemoveItemFromCart {
 
 export type Action =
   | AddItemToCart
-  | RemoveItemFromCart
+  | ClearItemFromCart
   | SetUser
   | ToggleCart
   | UpdateSampleAge
