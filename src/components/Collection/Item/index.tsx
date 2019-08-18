@@ -1,12 +1,27 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { Button } from '../../common';
 import { Item } from '../../../types';
+import { addItemToCart } from '../../../actions';
 import { createBGImageStyle } from '../../../utils';
 
 import './collection-item.style.scss';
 
-export const CollectionItem: React.FC<Item> = ({ name, imageURL, price }) => {
+interface CollectionItemProps {
+  addItemToCart: typeof addItemToCart;
+  item: Item;
+}
+
+export const _CollectionItem: React.FC<CollectionItemProps> = ({
+  addItemToCart,
+  item,
+}) => {
+  const handleAddToCartClick = () => {
+    addItemToCart(item);
+  };
+
+  const { name, imageURL, price } = item;
   const bgImageStyle = createBGImageStyle(imageURL);
 
   return (
@@ -16,7 +31,16 @@ export const CollectionItem: React.FC<Item> = ({ name, imageURL, price }) => {
         <span className="name">{name}</span>
         <span className="price">{price}</span>
       </div>
-      <Button inverted={true}>Add to Cart</Button>
+      <Button inverted={true} onClick={handleAddToCartClick}>
+        Add to Cart
+      </Button>
     </div>
   );
 };
+
+const dispatchProps = { addItemToCart };
+
+export const CollectionItem = connect(
+  undefined,
+  dispatchProps,
+)(_CollectionItem);

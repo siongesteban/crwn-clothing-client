@@ -1,4 +1,5 @@
 import { User } from './';
+import { CartItem } from './model.type';
 
 export enum ActionType {
   // sample
@@ -6,6 +7,7 @@ export enum ActionType {
   UPDATE_SAMPLE_AGE = '@@sample/UPDATE_AGE',
 
   // cart
+  ADD_ITEM_TO_CART = '@@cart/ADD_ITEM',
   TOGGLE_CART = '@@cart/TOGGLE',
 
   // user
@@ -37,4 +39,16 @@ export interface ToggleCart {
   type: ActionType.TOGGLE_CART;
 }
 
-export type Action = UpdateSampleName | UpdateSampleAge | SetUser | ToggleCart;
+export interface AddItemToCart {
+  type: ActionType.ADD_ITEM_TO_CART;
+  payload: {
+    item: CartItem;
+  };
+}
+
+export type Action =
+  | AddItemToCart
+  | SetUser
+  | ToggleCart
+  | UpdateSampleAge
+  | UpdateSampleName;

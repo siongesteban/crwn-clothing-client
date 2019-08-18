@@ -5,6 +5,10 @@ export type Collection = Pick<Section, 'id' | 'title'> & {
 
 export type FirebaseUser = firebase.User | null;
 
+export interface CartItem extends Item {
+  quantity?: number;
+}
+
 export interface Item {
   id: number;
   imageURL: string;

@@ -1,6 +1,7 @@
 import { DeepReadonly } from 'utility-types';
 
 import { Job, User } from './';
+import { CartItem } from './model.type';
 
 export interface RootState {
   cart: CartState;
@@ -18,4 +19,5 @@ export type UserState = DeepReadonly<User | null>;
 
 export type CartState = DeepReadonly<{
   hidden: boolean;
+  items: CartItem[];
 }>;
