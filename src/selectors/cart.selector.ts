@@ -21,3 +21,13 @@ export const selectCartToggleStatus = createSelector(
   [selectCart],
   ({ hidden }) => hidden,
 );
+
+export const selectCartTotal = createSelector(
+  [selectCartItems],
+  items =>
+    items.reduce(
+      (currentTotal, { price, quantity }) =>
+        quantity ? currentTotal + price * quantity : 0,
+      0,
+    ),
+);

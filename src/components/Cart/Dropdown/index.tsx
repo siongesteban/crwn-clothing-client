@@ -1,32 +1,53 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
 import { Button } from '../../common';
 import { CartItem } from '../Item';
 
 import { RootState, CartItem as Item } from '../../../types';
+import { toggleCart } from '../../../actions';
 import { selectCartItems } from '../../../selectors';
 
 import './cart-dropdown.style.scss';
 
-interface CartDropdownProps {
+interface CartDropdownProps extends RouteComponentProps {
   items: Item[];
+  toggleCart: typeof toggleCart;
 }
 
-const _CartDropdown: React.FC<CartDropdownProps> = ({ items }) => (
-  <div className="cart-dropdown">
-    <div className="cart-items">
-      {items.map(item => (
-        <CartItem key={item.id} item={item} />
-      ))}
-    </div>
-    <Button>Go to Checkout</Button>
-  </div>
-);
+type DesiredSelection = Pick<CartDropdownProps, 'items'>;
 
-const mapStateToProps = createStructuredSelector<RootState, CartDropdownProps>({
+const C: React.FC<CartDropdownProps> = ({ items, history, toggleCart }) => {
+  const handleGoToCheckoutClick = () => {
+    toggleCart();
+    history.push('/checkout');
+  };
+
+  return (
+    <div className="cart-dropdown">
+      <div className="cart-items">
+        {items.length ? (
+          items.map(item => <CartItem key={item.id} item={item} />)
+        ) : (
+          <span className="empty-message">Your cart is empty</span>
+        )}
+      </div>
+      <Button onClick={handleGoToCheckoutClick}>Go to Checkout</Button>
+    </div>
+  );
+};
+
+const mapStateToProps = createStructuredSelector<RootState, DesiredSelection>({
   items: selectCartItems,
 });
+const dispatchProps = { toggleCart };
 
-export const CartDropdown = connect(mapStateToProps)(_CartDropdown);
+const CConnected = connect(
+  mapStateToProps,
+  dispatchProps,
+)(C);
+const CWithRouter = withRouter(CConnected);
+
+export const CartDropdown = CWithRouter;
