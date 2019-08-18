@@ -1,9 +1,10 @@
 import { DeepReadonly } from 'utility-types';
 
-import { Job } from './';
+import { Job, User } from './';
 
 export interface RootState {
   sample: SampleState;
+  user: UserState;
 }
 
 export type SampleState = DeepReadonly<{
@@ -11,3 +12,5 @@ export type SampleState = DeepReadonly<{
   age: number;
   job: Job;
 }>;
+
+export type UserState = DeepReadonly<User | null>;

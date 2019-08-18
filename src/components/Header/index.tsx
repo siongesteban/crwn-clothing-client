@@ -1,11 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { RootState } from '../../types';
+import { FirebaseAuth } from '../../services/auth';
 import { Option } from './Option';
 
 import { ReactComponent as Logo } from '../../assets/crwn_clothing_logo.svg';
 import './header.style.scss';
-import { FirebaseAuth } from '../../services/auth';
 
 interface HeaderItem {
   path: string;
@@ -27,7 +29,7 @@ interface HeaderProps {
   isAuthenticated: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
+const _Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
   const handleSignOut = async () => {
     await FirebaseAuth.getInstance().signOut();
   };
@@ -52,3 +54,13 @@ export const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
     </div>
   );
 };
+
+_Header.defaultProps = {
+  isAuthenticated: false,
+};
+
+const mapStateToProps = (state: RootState) => ({
+  isAuthenticated: !!state.user,
+});
+
+export const Header = connect(mapStateToProps)(_Header);

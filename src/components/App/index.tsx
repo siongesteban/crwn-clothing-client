@@ -8,41 +8,30 @@ import { Shop } from '../../pages/Shop';
 import { Auth } from '../../pages/Auth';
 
 import { FirebaseAuth, UserService } from '../../services';
-import { User, RootState, SampleState } from '../../types';
-import { updateSampleName } from '../../actions';
+import { RootState, SampleState } from '../../types';
+import { updateSampleName, setUser } from '../../actions';
 
 import './app.style.scss';
 
 interface AppProps {
   sample: SampleState;
   updateSampleName: typeof updateSampleName;
+  setUser: typeof setUser;
 }
 
-interface AppState {
-  user?: User;
-}
-
-class _App extends React.Component<AppProps, AppState> {
+class _App extends React.Component<AppProps> {
   auth = FirebaseAuth.getInstance();
   userService = UserService.getInstance();
 
-  constructor(props: AppProps) {
-    super(props);
-
-    this.state = {
-      user: undefined,
-    };
-  }
-
   async componentDidMount() {
-    const { sample, updateSampleName } = this.props;
+    const { sample, updateSampleName, setUser } = this.props;
 
     console.log('sample state:', sample);
 
     updateSampleName('Jane');
 
     await this.auth.authenticate(authUser => {
-      this.setState({ user: authUser });
+      setUser(authUser);
     });
   }
 
@@ -53,7 +42,7 @@ class _App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <div>
-        <Header isAuthenticated={!!this.state.user} />
+        <Header />
         <Switch>
           <Route exact={true} path="/" component={Home} />
           <Route path="/shop" component={Shop} />
@@ -67,7 +56,8 @@ class _App extends React.Component<AppProps, AppState> {
 const mapStateToProps = (state: RootState) => ({
   sample: state.sample,
 });
-const dispatchProps = { updateSampleName };
+
+const dispatchProps = { updateSampleName, setUser };
 
 export const App = connect(
   mapStateToProps,

@@ -1,9 +1,13 @@
+import { User } from './';
+
 export enum ActionType {
+  // sample
   UPDATE_SAMPLE_NAME = '@@sample/UPDATE_NAME',
   UPDATE_SAMPLE_AGE = '@@sample/UPDATE_AGE',
-}
 
-export type Action = UpdateSampleName | UpdateSampleAge;
+  // user
+  SET_USER = '@@user/SET',
+}
 
 export interface UpdateSampleName {
   type: ActionType.UPDATE_SAMPLE_NAME;
@@ -18,3 +22,12 @@ export interface UpdateSampleAge {
     age: number;
   };
 }
+
+export interface SetUser {
+  type: ActionType.SET_USER;
+  payload: {
+    user: User | null;
+  };
+}
+
+export type Action = UpdateSampleName | UpdateSampleAge | SetUser;

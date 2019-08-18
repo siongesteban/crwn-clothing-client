@@ -5,4 +5,4 @@ export interface AuthCredentials {
   password: string;
 }
 
-export type AuthCallback<T = User> = (user?: T) => void;
+export type AuthCallback<T = User> = (user: T | null) => void;

@@ -27,7 +27,7 @@ export class FirestoreService<T extends Model> extends BaseService<
       const doc = await ref.get();
 
       if (!doc.exists) {
-        return undefined;
+        return null;
       }
 
       const result = doc.data() as T;
@@ -35,6 +35,7 @@ export class FirestoreService<T extends Model> extends BaseService<
       return result;
     } catch (e) {
       console.error('@FirestoreService::get', e.message);
+      return null;
     }
   }
 
@@ -55,6 +56,7 @@ export class FirestoreService<T extends Model> extends BaseService<
       return data;
     } catch (e) {
       console.error('@FirestoreService::create', e.message);
+      return null;
     }
   }
 }

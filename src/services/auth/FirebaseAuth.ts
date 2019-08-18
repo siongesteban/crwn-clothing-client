@@ -41,12 +41,12 @@ export class FirebaseAuth extends BaseAuth<Client, void> {
 
   async authenticate(callback: AuthCallback): Promise<void> {
     return new Promise(resolve => {
-      let user: User | undefined;
+      let user: User | null;
 
       this.unsubscribeFromAuth = this.client.onAuthStateChanged(
         async (firebaseUser: FirebaseUser) => {
           if (!firebaseUser) {
-            user = undefined;
+            user = null;
           } else {
             const { displayName, email, uid } = firebaseUser;
 
@@ -89,12 +89,15 @@ export class FirebaseAuth extends BaseAuth<Client, void> {
         email,
         password,
       );
-      const user = result.user as User;
-      await this.userService.create({
-        email,
-        displayName,
-        uid: user.uid,
-      });
+      const user = result.user;
+
+      if (user) {
+        await this.userService.create({
+          email,
+          displayName,
+          uid: user.uid,
+        });
+      }
     } catch (e) {
       console.error('@FirebaseAuth::signUp', e.message);
     }
