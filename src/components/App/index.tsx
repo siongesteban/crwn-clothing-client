@@ -15,8 +15,8 @@ import './app.style.scss';
 
 interface AppProps {
   sample: SampleState;
-  updateSampleName: typeof updateSampleName;
   setUser: typeof setUser;
+  updateSampleName: typeof updateSampleName;
 }
 
 class _App extends React.Component<AppProps> {
@@ -46,16 +46,14 @@ class _App extends React.Component<AppProps> {
         <Switch>
           <Route exact={true} path="/" component={Home} />
           <Route path="/shop" component={Shop} />
-          <Route path="/signin" component={Auth} />
+          <Route exact={true} path="/signin" component={Auth} />
         </Switch>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state: RootState) => ({
-  sample: state.sample,
-});
+const mapStateToProps = ({ sample }: RootState) => ({ sample });
 
 const dispatchProps = { updateSampleName, setUser };
 
