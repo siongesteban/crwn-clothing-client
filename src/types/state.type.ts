@@ -1,13 +1,23 @@
 import { DeepReadonly } from 'utility-types';
 
 import { Job, User } from './';
-import { CartItem } from './model.type';
+import { CartItem, Section } from './model.type';
 
 export interface RootState {
   cart: CartState;
+  directory: DirectoryState;
   sample: SampleState;
   user: UserState;
 }
+
+export type CartState = DeepReadonly<{
+  hidden: boolean;
+  items: CartItem[];
+}>;
+
+export type DirectoryState = DeepReadonly<{
+  sections: Section[];
+}>;
 
 export type SampleState = DeepReadonly<{
   name: string;
@@ -16,8 +26,3 @@ export type SampleState = DeepReadonly<{
 }>;
 
 export type UserState = DeepReadonly<User | null>;
-
-export type CartState = DeepReadonly<{
-  hidden: boolean;
-  items: CartItem[];
-}>;

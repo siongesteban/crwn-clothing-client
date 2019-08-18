@@ -27,9 +27,13 @@ export interface Model {
   uid?: string;
 }
 
+export enum SectionSize {
+  LARGE = 'large',
+}
+
 export type Section = Pick<Item, 'id' | 'imageURL'> & {
   linkURL?: string;
-  size?: string;
+  size?: SectionSize;
   title: string;
 };
 
