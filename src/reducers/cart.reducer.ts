@@ -19,6 +19,11 @@ export const cartReducer = (
           action.payload.item,
         ),
       };
+    case ActionType.REMOVE_ITEM_FROM_CART:
+      return {
+        ...state,
+        items: state.items.filter(({ id }) => id !== action.payload.id),
+      };
     case ActionType.TOGGLE_CART:
       return {
         ...state,

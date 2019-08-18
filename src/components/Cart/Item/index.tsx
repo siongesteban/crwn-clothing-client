@@ -1,7 +1,8 @@
 import React from 'react';
 
-import './cart-item.style.scss';
 import { CartItem as Item } from '../../../types';
+
+import './cart-item.style.scss';
 
 interface CartItemProps {
   item: Item;
@@ -15,7 +16,7 @@ export const CartItem: React.FC<CartItemProps> = ({
     <div className="item-details">
       <span className="name">{name}</span>
       <span className="price">
-        {quantity} x {price}
+        {price} x {quantity}
       </span>
     </div>
   </div>
