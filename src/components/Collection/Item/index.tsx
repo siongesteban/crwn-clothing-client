@@ -1,16 +1,12 @@
 import React from 'react';
 
+import { Button } from '../../common';
 import { Item } from '../../../types';
 import { createBGImageStyle } from '../../../utils';
 
 import './collection-item.style.scss';
 
-export const CollectionItem: React.FC<Item> = ({
-  id,
-  name,
-  imageURL,
-  price,
-}) => {
+export const CollectionItem: React.FC<Item> = ({ name, imageURL, price }) => {
   const bgImageStyle = createBGImageStyle(imageURL);
 
   return (
@@ -20,6 +16,7 @@ export const CollectionItem: React.FC<Item> = ({
         <span className="name">{name}</span>
         <span className="price">{price}</span>
       </div>
+      <Button inverted={true}>Add to Cart</Button>
     </div>
   );
 };
