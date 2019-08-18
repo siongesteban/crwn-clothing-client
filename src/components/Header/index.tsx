@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { RootState } from '../../types';
 import { FirebaseAuth } from '../../services/auth';
+import { CartDropdown, CartIcon } from '../Cart';
 import { Option } from './Option';
 
 import { ReactComponent as Logo } from '../../assets/crwn_clothing_logo.svg';
@@ -50,7 +51,9 @@ const _Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
         ) : (
           <Option path="/signin" text="Signin" />
         )}
+        <CartIcon />
       </div>
+      <CartDropdown />
     </div>
   );
 };
