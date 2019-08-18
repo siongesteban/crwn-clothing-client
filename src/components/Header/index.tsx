@@ -27,10 +27,11 @@ const items: HeaderItem[] = [
 ];
 
 interface HeaderProps {
+  cartIsHidden: boolean;
   isAuthenticated: boolean;
 }
 
-const _Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
+const _Header: React.FC<HeaderProps> = ({ cartIsHidden, isAuthenticated }) => {
   const handleSignOut = async () => {
     await FirebaseAuth.getInstance().signOut();
   };
@@ -53,17 +54,17 @@ const _Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
         )}
         <CartIcon />
       </div>
-      <CartDropdown />
+      {!cartIsHidden && <CartDropdown />}
     </div>
   );
 };
 
-_Header.defaultProps = {
-  isAuthenticated: false,
-};
-
-const mapStateToProps = (state: RootState) => ({
-  isAuthenticated: !!state.user,
+const mapStateToProps = ({
+  cart: { hidden: cartIsHidden },
+  user,
+}: RootState) => ({
+  cartIsHidden,
+  isAuthenticated: !!user,
 });
 
 export const Header = connect(mapStateToProps)(_Header);
