@@ -1,11 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-import { RootState } from '../../types';
-import { FirebaseAuth } from '../../services/auth';
 import { CartDropdown, CartIcon } from '../Cart';
 import { Option } from './Option';
+
+import { RootState } from '../../types';
+import { selectCartToggleStatus, selectAuthStatus } from '../../selectors';
+import { FirebaseAuth } from '../../services/auth';
 
 import { ReactComponent as Logo } from '../../assets/crwn_clothing_logo.svg';
 import './header.style.scss';
@@ -59,12 +62,9 @@ const _Header: React.FC<HeaderProps> = ({ cartIsHidden, isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = ({
-  cart: { hidden: cartIsHidden },
-  user,
-}: RootState) => ({
-  cartIsHidden,
-  isAuthenticated: !!user,
+const mapStateToProps = createStructuredSelector<RootState, HeaderProps>({
+  cartIsHidden: selectCartToggleStatus,
+  isAuthenticated: selectAuthStatus,
 });
 
 export const Header = connect(mapStateToProps)(_Header);

@@ -1,11 +1,14 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import { Signin, Signup } from '../../components/Auth';
 
-import './auth.style.scss';
 import { RootState } from '../../types';
+import { selectAuthStatus } from '../../selectors';
+
+import './auth.style.scss';
 
 interface AuthProps {
   isAuthenticated: boolean;
@@ -28,6 +31,8 @@ _Auth.defaultProps = {
   isAuthenticated: false,
 };
 
-const mapStateToProps = ({ user }: RootState) => ({ isAuthenticated: !!user });
+const mapStateToProps = createStructuredSelector<RootState, AuthProps>({
+  isAuthenticated: selectAuthStatus,
+});
 
 export const Auth = connect(mapStateToProps)(_Auth);
