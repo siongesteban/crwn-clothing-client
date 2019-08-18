@@ -1,6 +1,6 @@
-export abstract class BaseService<T> {
-  protected abstract client: any;
+export abstract class BaseService<T1, T2> {
+  protected abstract client: T2;
 
-  abstract async get(id: string): Promise<T | undefined>;
-  abstract async create(data: T): Promise<T | undefined>;
+  abstract async get(id: string): Promise<T1 | undefined>;
+  abstract async create(data: T1): Promise<T1 | undefined>;
 }

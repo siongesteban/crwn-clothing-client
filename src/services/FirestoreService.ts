@@ -4,9 +4,15 @@ import { Model } from '../types';
 import { firebase } from './clients';
 import { BaseService } from './BaseService';
 
-export class FirestoreService<T extends Model> extends BaseService<T> {
-  protected client: firebase.firestore.Firestore;
-  private collection: firebase.firestore.CollectionReference;
+type Firestore = firebase.firestore.Firestore;
+type CollectionReference = firebase.firestore.CollectionReference;
+
+export class FirestoreService<T extends Model> extends BaseService<
+  T,
+  Firestore
+> {
+  protected client: Firestore;
+  private collection: CollectionReference;
 
   constructor(path: string) {
     super();
