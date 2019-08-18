@@ -5,11 +5,19 @@ import './button.style.scss';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   googleSignin?: boolean;
+  inverted?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, googleSignin, ...rest }) => {
+const Button: React.FC<ButtonProps> = ({
+  children,
+  googleSignin,
+  inverted,
+  ...rest
+}) => {
   const googleSigninClassName = 'google-signin';
+
   const className = classNames('button', {
+    inverted,
     [googleSigninClassName]: googleSignin,
   });
 

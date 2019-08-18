@@ -15,6 +15,8 @@ $google: #4285f4;
   padding: 0 35px 0 35px;
   text-transform: uppercase;
   width: auto;
+  display: flex;
+  justify-content: center;
 
   &:hover {
     background-color: white;
@@ -29,6 +31,18 @@ $google: #4285f4;
       background: darken($google, 10%);
       border: none;
       color: #fff;
+    }
+  }
+
+  &.inverted {
+    background: #fff;
+    color: #000;
+    border: 1px solid #000;
+
+    &:hover {
+      background: #000;
+      color: #fff;
+      border: none;
     }
   }
 }
