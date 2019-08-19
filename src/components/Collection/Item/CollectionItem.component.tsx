@@ -13,7 +13,7 @@ interface CollectionItemProps {
   item: Item;
 }
 
-export const _CollectionItem: React.FC<CollectionItemProps> = ({
+const _CollectionItem: React.FC<CollectionItemProps> = ({
   addItemToCart,
   item,
 }) => {
