@@ -1,7 +1,6 @@
 import { DeepReadonly } from 'utility-types';
 
-import { Job, User } from './';
-import { CartItem, Section } from './model.type';
+import { Job, User, CartItem, Section } from 'types';
 
 export interface RootState {
   cart: CartState;

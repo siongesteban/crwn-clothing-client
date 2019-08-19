@@ -1,5 +1,4 @@
-import { User } from './';
-import { CartItem } from './model.type';
+import { CartItem, User } from 'types';
 
 export enum ActionType {
   // sample

@@ -1,8 +1,8 @@
 import uuid from 'uuid/v4';
 
 import { Model } from 'types';
-import { firebase } from './clients';
-import { BaseService } from './BaseService';
+import { BaseService } from 'services';
+import { firebase } from 'services/clients';
 
 type Firestore = firebase.firestore.Firestore;
 type CollectionReference = firebase.firestore.CollectionReference;

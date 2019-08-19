@@ -1,5 +1,5 @@
 import { User } from 'types';
-import { FirestoreService } from './FirestoreService';
+import { FirestoreService } from 'services';
 
 export class UserService extends FirestoreService<User> {
   private static instance: UserService;
