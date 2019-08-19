@@ -7,3 +7,4 @@ export * from './Collection';
 export * from './Directory';
 export * from './Header';
 export * from './MenuItem';
+export * from './StripeButton';
