@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { Signin, Signup } from 'components/Auth';
+import { Signin, Signup } from 'components';
 import { RootState } from 'types';
 import { selectAuthStatus } from 'selectors';
 

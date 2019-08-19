@@ -4,8 +4,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
 import { RootState, CartItem as Item } from 'types';
-import { Button } from 'components/common';
-import { CartItem } from 'components/Cart/Item';
+import { Button, CartItem } from 'components';
 import { toggleCart } from 'actions';
 import { selectCartItems } from 'selectors';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Collection } from 'types';
-import { CollectionPreview } from 'components/Collection/Preview';
+import { CollectionPreview } from 'components';
 import { collections } from './collections.data';
 
 interface ShopPageProps {}

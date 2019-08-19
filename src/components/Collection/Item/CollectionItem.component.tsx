@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { Item } from 'types';
-import { Button } from 'components/common';
+import { Button } from 'components';
 import { createBGImageStyle } from 'utils';
 import { addItemToCart } from 'actions';
 

@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { RootState } from 'types';
-import { CartDropdown, CartIcon } from 'components/Cart';
-import { Option } from './Option';
+import { CartDropdown, CartIcon, HeaderOption } from 'components';
 import { FirebaseAuth } from 'services/auth';
 import { selectCartToggleStatus, selectAuthStatus } from 'selectors';
 
@@ -45,14 +44,14 @@ const _Header: React.FC<HeaderProps> = ({ cartIsHidden, isAuthenticated }) => {
       </Link>
       <div className="options">
         {items.map(({ path, text }: HeaderItem) => (
-          <Option key={path} path={path} text={text} />
+          <HeaderOption key={path} path={path} text={text} />
         ))}
         {isAuthenticated ? (
           <div className="option" onClick={handleSignOut}>
             Sign Out
           </div>
         ) : (
-          <Option path="/signin" text="Signin" />
+          <HeaderOption path="/signin" text="Signin" />
         )}
         <CartIcon />
       </div>
