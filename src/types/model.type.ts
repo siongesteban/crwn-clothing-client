@@ -3,6 +3,8 @@ export type Collection = Pick<Section, 'id' | 'title'> & {
   items: Item[];
 };
 
+export type Collections = { [key: string]: Collection };
+
 export type FirebaseUser = firebase.User | null;
 
 export interface CartItem extends Item {

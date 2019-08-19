@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { Collection, RootState } from 'types';
 import { CollectionPreview } from 'components';
-import { selectShopCollections } from 'selectors';
+import { selectShopCollectionsForPreview } from 'selectors';
 
 import './collection-overview.style.scss';
 
@@ -24,7 +24,7 @@ const mapStateToProps = createStructuredSelector<
   RootState,
   CollectionOverviewProps
 >({
-  collections: selectShopCollections,
+  collections: selectShopCollectionsForPreview,
 });
 
 const CConnected = connect(mapStateToProps)(C);

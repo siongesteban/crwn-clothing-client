@@ -12,23 +12,27 @@ const INITIAL_STATE: DirectoryState = {
       id: 2,
       imageURL: 'https://i.ibb.co/px2tCc3/jackets.png',
       title: 'jackets',
+      linkURL: 'jackets',
     },
     {
       id: 3,
       imageURL: 'https://i.ibb.co/0jqHpnp/sneakers.png',
       title: 'sneakers',
+      linkURL: 'sneakers',
     },
     {
       id: 4,
       imageURL: 'https://i.ibb.co/GCCdy8t/womens.png',
       title: 'womens',
       size: SectionSize.LARGE,
+      linkURL: 'womens',
     },
     {
       id: 5,
       imageURL: 'https://i.ibb.co/R70vBrQ/men.png',
       title: 'mens',
       size: SectionSize.LARGE,
+      linkURL: 'mens',
     },
   ],
 };

@@ -1,6 +1,7 @@
 import { DeepReadonly } from 'utility-types';
 
-import { Job, User, CartItem, Section, Collection } from 'types';
+import { Job, User, CartItem, Section } from 'types';
+import { Collections } from './model.type';
 
 export interface RootState {
   cart: CartState;
@@ -26,7 +27,7 @@ export type SampleState = DeepReadonly<{
 }>;
 
 export type ShopState = DeepReadonly<{
-  collections: Collection[];
+  collections: Collections;
 }>;
 
 export type UserState = DeepReadonly<User | null>;

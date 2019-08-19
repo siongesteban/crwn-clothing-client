@@ -12,7 +12,7 @@ type MenuItemProps = Omit<Section, 'id'> & RouteComponentProps;
 class _MenuItem extends React.Component<MenuItemProps> {
   handleClick = () => {
     const { history, linkURL, match } = this.props;
-    history.push(`${match.url}${linkURL}`);
+    history.push(`${match.url}shop/${linkURL}`);
   };
 
   render() {

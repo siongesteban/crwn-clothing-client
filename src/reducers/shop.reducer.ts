@@ -1,8 +1,8 @@
 import { ShopState } from 'types';
 
 const INITIAL_STATE: ShopState = {
-  collections: [
-    {
+  collections: {
+    hats: {
       id: 1,
       title: 'Hats',
       path: 'hats',
@@ -63,7 +63,7 @@ const INITIAL_STATE: ShopState = {
         },
       ],
     },
-    {
+    sneakers: {
       id: 2,
       title: 'Sneakers',
       path: 'sneakers',
@@ -118,7 +118,7 @@ const INITIAL_STATE: ShopState = {
         },
       ],
     },
-    {
+    jackets: {
       id: 3,
       title: 'Jackets',
       path: 'jackets',
@@ -155,7 +155,7 @@ const INITIAL_STATE: ShopState = {
         },
       ],
     },
-    {
+    womens: {
       id: 4,
       title: 'Womens',
       path: 'womens',
@@ -204,7 +204,7 @@ const INITIAL_STATE: ShopState = {
         },
       ],
     },
-    {
+    mens: {
       id: 5,
       title: 'Mens',
       path: 'mens',
@@ -247,7 +247,7 @@ const INITIAL_STATE: ShopState = {
         },
       ],
     },
-  ],
+  },
 };
 
 export const shopReducer = (state: ShopState = INITIAL_STATE): ShopState =>
