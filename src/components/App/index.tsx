@@ -2,12 +2,11 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Header } from '../Header';
-import { Auth, Checkout, Home, Shop } from '../../pages';
-
-import { FirebaseAuth, UserService } from '../../services';
-import { RootState, SampleState } from '../../types';
-import { updateSampleName, setUser } from '../../actions';
+import { RootState, SampleState } from 'types';
+import { Header } from 'components/Header';
+import { Auth, Checkout, Home, Shop } from 'pages';
+import { FirebaseAuth, UserService } from 'services';
+import { updateSampleName, setUser } from 'actions';
 
 import './app.style.scss';
 

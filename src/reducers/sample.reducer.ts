@@ -1,4 +1,4 @@
-import { SampleState, Action, ActionType } from '../types';
+import { SampleState, Action, ActionType } from 'types';
 
 const INITIAL_STATE: SampleState = {
   name: 'John',

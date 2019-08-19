@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CartItem as Item } from '../../../types';
+import { CartItem as Item } from 'types';
 
 import './cart-item.style.scss';
 

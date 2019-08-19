@@ -1,4 +1,4 @@
-import { DirectoryState, SectionSize } from '../types';
+import { DirectoryState, SectionSize } from 'types';
 
 const INITIAL_STATE: DirectoryState = {
   sections: [

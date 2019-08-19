@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Button } from '../../common';
-import { Item } from '../../../types';
-import { addItemToCart } from '../../../actions';
-import { createBGImageStyle } from '../../../utils';
+import { Item } from 'types';
+import { Button } from 'components/common';
+import { createBGImageStyle } from 'utils';
+import { addItemToCart } from 'actions';
 
 import './collection-item.style.scss';
 

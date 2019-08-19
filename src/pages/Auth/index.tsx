@@ -3,10 +3,9 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { Signin, Signup } from '../../components/Auth';
-
-import { RootState } from '../../types';
-import { selectAuthStatus } from '../../selectors';
+import { Signin, Signup } from 'components/Auth';
+import { RootState } from 'types';
+import { selectAuthStatus } from 'selectors';
 
 import './auth.style.scss';
 

@@ -1,4 +1,4 @@
-import { AuthCredentials, User, AuthCallback } from '../../types';
+import { AuthCredentials, AuthCallback, User } from 'types';
 
 export abstract class BaseAuth<T, K = User> {
   protected abstract client: T;

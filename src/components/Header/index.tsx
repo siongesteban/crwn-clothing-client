@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { CartDropdown, CartIcon } from '../Cart';
+import { RootState } from 'types';
+import { CartDropdown, CartIcon } from 'components/Cart';
 import { Option } from './Option';
+import { FirebaseAuth } from 'services/auth';
+import { selectCartToggleStatus, selectAuthStatus } from 'selectors';
 
-import { RootState } from '../../types';
-import { selectCartToggleStatus, selectAuthStatus } from '../../selectors';
-import { FirebaseAuth } from '../../services/auth';
-
-import { ReactComponent as Logo } from '../../assets/crwn_clothing_logo.svg';
+import { ReactComponent as Logo } from 'assets/crwn_clothing_logo.svg';
 import './header.style.scss';
 
 interface HeaderItem {

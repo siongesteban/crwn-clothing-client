@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react';
 
-import { CartItem } from '../types';
+import { CartItem } from 'types';
 
 export const createBGImageStyle = (imageURL: string): CSSProperties => ({
   backgroundImage: `url(${imageURL})`,

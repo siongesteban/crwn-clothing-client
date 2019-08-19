@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { Button, Input } from '../../common';
-
-import { ObjectSet } from '../../../types';
+import { ObjectSet } from 'types';
+import { Button, Input } from 'components/common';
+import { FirebaseAuth } from 'services/auth';
 
 import './signin.style.scss';
-import { FirebaseAuth } from '../../../services/auth';
 
 interface SigninProps {}
 

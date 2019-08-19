@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { ObjectSet } from '../../../types';
-import { FirebaseAuth } from '../../../services/auth';
-import { Button, Input } from '../../common';
+import { ObjectSet } from 'types';
+import { Button, Input } from 'components/common';
+import { FirebaseAuth } from 'services/auth';
 
 import './signup.style.scss';
 

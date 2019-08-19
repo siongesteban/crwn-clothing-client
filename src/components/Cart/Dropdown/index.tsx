@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
-import { Button } from '../../common';
-import { CartItem } from '../Item';
-
-import { RootState, CartItem as Item } from '../../../types';
-import { toggleCart } from '../../../actions';
-import { selectCartItems } from '../../../selectors';
+import { RootState, CartItem as Item } from 'types';
+import { Button } from 'components/common';
+import { CartItem } from 'components/Cart/Item';
+import { toggleCart } from 'actions';
+import { selectCartItems } from 'selectors';
 
 import './cart-dropdown.style.scss';
 

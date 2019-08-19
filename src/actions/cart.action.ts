@@ -1,12 +1,12 @@
 import {
   ActionType,
-  AddItemToCart,
   CartItem,
   Item,
-  ToggleCart,
+  AddItemToCart,
   ClearItemFromCart,
-  RemoveItemFromCart
-} from '../types';
+  RemoveItemFromCart,
+  ToggleCart
+} from 'types';
 
 export const addItemToCart = (item: Item): AddItemToCart => ({
   type: ActionType.ADD_ITEM_TO_CART,

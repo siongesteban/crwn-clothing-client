@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { CollectionItem } from '../Item';
-
-import { Collection, Item } from '../../../types';
+import { Collection, Item } from 'types';
+import { CollectionItem } from 'components/Collection/Item';
 
 import './collection-preview.style.scss';
 

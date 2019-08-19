@@ -2,8 +2,8 @@ import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { Section } from '../../types';
-import { createBGImageStyle } from '../../utils';
+import { Section } from 'types';
+import { createBGImageStyle } from 'utils';
 
 import './menu-item.style.scss';
 

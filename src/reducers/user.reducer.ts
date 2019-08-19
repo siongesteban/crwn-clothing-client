@@ -1,4 +1,4 @@
-import { UserState, Action, ActionType } from '../types';
+import { UserState, Action, ActionType } from 'types';
 
 export const userReducer = (
   state: UserState = null,

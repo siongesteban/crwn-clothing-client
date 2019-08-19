@@ -1,4 +1,4 @@
-import { ActionType, UpdateSampleName, UpdateSampleAge } from '../types';
+import { ActionType, UpdateSampleName, UpdateSampleAge } from 'types';
 
 export const updateSampleName = (name: string): UpdateSampleName => ({
   type: ActionType.UPDATE_SAMPLE_NAME,

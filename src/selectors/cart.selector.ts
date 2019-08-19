@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { RootState, CartItem } from '../types';
+
+import { RootState, CartItem } from 'types';
 
 const selectCart = ({ cart }: RootState) => cart;
 

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { RootState } from '../types';
+import { RootState } from 'types';
 
 import { cartReducer } from './cart.reducer';
 import { directoryReducer } from './directory.reducer';

@@ -1,6 +1,6 @@
 import uuid from 'uuid/v4';
 
-import { Model } from '../types';
+import { Model } from 'types';
 import { firebase } from './clients';
 import { BaseService } from './BaseService';
 

@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { RootState } from '../../../types';
-import { toggleCart } from '../../../actions';
-import { selectCartTotalQuantity } from '../../../selectors';
+import { RootState } from 'types';
+import { toggleCart } from 'actions';
+import { selectCartTotalQuantity } from 'selectors';
 
-import { ReactComponent as BagIcon } from '../../../assets/crwn_clothing_shopping_bag_icon.svg';
+import { ReactComponent as BagIcon } from 'assets/crwn_clothing_shopping_bag_icon.svg';
 import './cart-icon.style.scss';
 
 interface CartIconProps {

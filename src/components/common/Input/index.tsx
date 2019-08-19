@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { InputChangeHandler } from '../../../types';
+import { InputChangeHandler } from 'types';
 
 import './input.style.scss';
 

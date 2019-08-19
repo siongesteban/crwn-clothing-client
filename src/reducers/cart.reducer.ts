@@ -1,5 +1,5 @@
-import { CartState, Action, ActionType, CartItem } from '../types';
-import { increaseCartItemQuantity, decreaseCartItemQuantity } from '../utils';
+import { Action, ActionType, CartState, CartItem } from 'types';
+import { increaseCartItemQuantity, decreaseCartItemQuantity } from 'utils';
 
 const INITIAL_STATE: CartState = {
   hidden: true,

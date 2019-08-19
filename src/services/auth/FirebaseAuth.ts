@@ -1,7 +1,7 @@
-import { User, FirebaseUser, AuthCallback, AuthCredentials } from '../../types';
-import { firebase } from '../clients';
+import { User, FirebaseUser, AuthCallback, AuthCredentials } from 'types';
+import { firebase } from 'services/clients';
+import { UserService } from 'services';
 import { BaseAuth } from './BaseAuth';
-import { UserService } from '../UserService';
 
 enum AuthProvider {
   GOOGLE,
