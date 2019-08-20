@@ -8,7 +8,7 @@ import { Auth, Checkout, Home, Shop } from 'pages';
 import { FirebaseAuth, UserService } from 'services';
 import { updateSampleName, setUser } from 'actions';
 
-import './app.style.scss';
+import { S } from './App.style';
 
 interface AppProps {
   sample: SampleState;
@@ -38,7 +38,8 @@ class _App extends React.Component<AppProps> {
 
   render() {
     return (
-      <div>
+      <>
+        <S.GlobalStyle />
         <Header />
         <Switch>
           <Route exact={true} path="/" component={Home} />
@@ -46,7 +47,7 @@ class _App extends React.Component<AppProps> {
           <Route path="/checkout" component={Checkout} />
           <Route exact={true} path="/signin" component={Auth} />
         </Switch>
-      </div>
+      </>
     );
   }
 }

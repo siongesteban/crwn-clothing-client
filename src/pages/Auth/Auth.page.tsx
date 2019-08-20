@@ -7,7 +7,7 @@ import { Signin, Signup } from 'components';
 import { RootState } from 'types';
 import { selectAuthStatus } from 'selectors';
 
-import './auth.style.scss';
+import { S } from './Auth.style';
 
 interface AuthProps {
   isAuthenticated: boolean;
@@ -18,10 +18,10 @@ const _Auth: React.FC<AuthProps> = ({ isAuthenticated }) => (
     {isAuthenticated ? (
       <Redirect to="/" />
     ) : (
-      <div className="auth-container">
+      <S.Wrapper>
         <Signin />
         <Signup />
-      </div>
+      </S.Wrapper>
     )}
   </>
 );

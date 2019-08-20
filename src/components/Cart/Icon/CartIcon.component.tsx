@@ -6,8 +6,7 @@ import { RootState } from 'types';
 import { toggleCart } from 'actions';
 import { selectCartTotalQuantity } from 'selectors';
 
-import { ReactComponent as BagIcon } from 'assets/crwn_clothing_shopping_bag_icon.svg';
-import './cart-icon.style.scss';
+import { S } from './CartIcon.style';
 
 interface CartIconProps {
   totalQuantity: number;
@@ -17,10 +16,10 @@ interface CartIconProps {
 type DesiredSelection = Pick<CartIconProps, 'totalQuantity'>;
 
 const _CartIcon: React.FC<CartIconProps> = ({ toggleCart, totalQuantity }) => (
-  <div className="cart-icon" onClick={toggleCart}>
-    <BagIcon className="bag-icon" />
-    <span className="item-count">{totalQuantity}</span>
-  </div>
+  <S.Wrapper onClick={toggleCart}>
+    <S.BagIcon />
+    <S.ItemCount>{totalQuantity}</S.ItemCount>
+  </S.Wrapper>
 );
 
 const mapStateToProps = createStructuredSelector<RootState, DesiredSelection>({

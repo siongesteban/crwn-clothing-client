@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -9,7 +8,7 @@ import { FirebaseAuth } from 'services/auth';
 import { selectCartToggleStatus, selectAuthStatus } from 'selectors';
 
 import { ReactComponent as Logo } from 'assets/crwn_clothing_logo.svg';
-import './header.style.scss';
+import { S } from './Header.style';
 
 interface HeaderItem {
   path: string;
@@ -38,25 +37,23 @@ const _Header: React.FC<HeaderProps> = ({ cartIsHidden, isAuthenticated }) => {
   };
 
   return (
-    <div className="header">
-      <Link className="logo-container" to="/">
-        <Logo className="logo" />
-      </Link>
-      <div className="options">
+    <S.Header>
+      <S.Logo to="/">
+        <Logo />
+      </S.Logo>
+      <S.Options>
         {items.map(({ path, text }: HeaderItem) => (
           <HeaderOption key={path} path={path} text={text} />
         ))}
         {isAuthenticated ? (
-          <div className="option" onClick={handleSignOut}>
-            Sign Out
-          </div>
+          <S.OptionDiv onClick={handleSignOut}>Sign Out</S.OptionDiv>
         ) : (
           <HeaderOption path="/signin" text="Signin" />
         )}
         <CartIcon />
-      </div>
+      </S.Options>
       {!cartIsHidden && <CartDropdown />}
-    </div>
+    </S.Header>
   );
 };
 

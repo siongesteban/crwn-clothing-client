@@ -6,7 +6,7 @@ import { Collection as CollectionType, RootState } from 'types';
 import { CollectionItem } from 'components';
 import { selectShopCollection } from 'selectors';
 
-import './collection.style.scss';
+import { S } from './Collection.style';
 
 type CollectionProps = RouteComponentProps<{
   collectionId: string;
@@ -18,14 +18,14 @@ const C: React.FC<CollectionProps> = ({ collection }) => {
   const { title, items } = collection;
 
   return (
-    <div className="collection-page">
-      <h2 className="title">{title}</h2>
-      <div className="items">
+    <S.Wrapper>
+      <S.Title>{title}</S.Title>
+      <S.Items>
         {items.map(item => (
           <CollectionItem key={item.id} item={item} />
         ))}
-      </div>
-    </div>
+      </S.Items>
+    </S.Wrapper>
   );
 };
 

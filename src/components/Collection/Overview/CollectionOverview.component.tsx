@@ -6,18 +6,18 @@ import { Collection, RootState } from 'types';
 import { CollectionPreview } from 'components';
 import { selectShopCollectionsForPreview } from 'selectors';
 
-import './collection-overview.style.scss';
+import { S } from './CollectionOverview.style';
 
 interface CollectionOverviewProps {
   collections: Collection[];
 }
 
 const C: React.FC<CollectionOverviewProps> = ({ collections }) => (
-  <div className="collection-overview">
+  <S.Wrapper>
     {collections.map((collection: Collection) => (
       <CollectionPreview key={collection.id} {...collection} />
     ))}
-  </div>
+  </S.Wrapper>
 );
 
 const mapStateToProps = createStructuredSelector<

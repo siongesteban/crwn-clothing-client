@@ -4,7 +4,7 @@ import { ObjectSet } from 'types';
 import { Button, Input } from 'components';
 import { FirebaseAuth } from 'services/auth';
 
-import './signup.style.scss';
+import { S } from '../Auth.style';
 
 interface SignpuProps {}
 
@@ -57,8 +57,8 @@ export class Signup extends React.Component<SignpuProps, SignupState> {
     const { displayName, email, password, confirmPassword } = this.state;
 
     return (
-      <div className="signup">
-        <h2 className="title">I do not have an account</h2>
+      <S.Wrapper>
+        <S.Title>I do not have an account</S.Title>
         <span>Sign up with your email and password</span>
 
         <form onSubmit={this.handleSubmit}>
@@ -93,11 +93,11 @@ export class Signup extends React.Component<SignpuProps, SignupState> {
             type="password"
             value={confirmPassword}
           />
-          <div className="buttons">
+          <S.Buttons>
             <Button type="submit">Sign Up</Button>
-          </div>
+          </S.Buttons>
         </form>
-      </div>
+      </S.Wrapper>
     );
   }
 }

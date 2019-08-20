@@ -4,11 +4,11 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
 import { RootState, CartItem as Item } from 'types';
-import { Button, CartItem } from 'components';
+import { CartItem } from 'components';
 import { toggleCart } from 'actions';
 import { selectCartItems } from 'selectors';
 
-import './cart-dropdown.style.scss';
+import { S } from './CartDropdown.style';
 
 interface CartDropdownProps extends RouteComponentProps {
   items: Item[];
@@ -24,16 +24,16 @@ const C: React.FC<CartDropdownProps> = ({ items, history, toggleCart }) => {
   };
 
   return (
-    <div className="cart-dropdown">
-      <div className="cart-items">
+    <S.Wrapper>
+      <S.Items>
         {items.length ? (
           items.map(item => <CartItem key={item.id} item={item} />)
         ) : (
-          <span className="empty-message">Your cart is empty</span>
+          <S.EmptyMessage>Your cart is empty</S.EmptyMessage>
         )}
-      </div>
-      <Button onClick={handleGoToCheckoutClick}>Go to Checkout</Button>
-    </div>
+      </S.Items>
+      <S.Button onClick={handleGoToCheckoutClick}>Go to Checkout</S.Button>
+    </S.Wrapper>
   );
 };
 

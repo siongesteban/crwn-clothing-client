@@ -3,7 +3,7 @@ import React from 'react';
 import { Collection, Item } from 'types';
 import { CollectionItem } from 'components';
 
-import './collection-preview.style.scss';
+import { S } from './CollectionPreview.style';
 
 type CollectionPreviewProps = Omit<Collection, 'id'>;
 
@@ -11,12 +11,12 @@ export const CollectionPreview: React.FC<CollectionPreviewProps> = ({
   title,
   items,
 }) => (
-  <div className="collection-preview">
-    <h1 className="title">{title.toUpperCase()}</h1>
-    <div className="preview">
+  <S.Wrapper>
+    <S.Title>{title.toUpperCase()}</S.Title>
+    <S.Preview>
       {items.slice(0, 4).map((item: Item) => (
         <CollectionItem key={item.id} item={item} />
       ))}
-    </div>
-  </div>
+    </S.Preview>
+  </S.Wrapper>
 );

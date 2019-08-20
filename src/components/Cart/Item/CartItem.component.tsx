@@ -2,7 +2,7 @@ import React from 'react';
 
 import { CartItem as Item } from 'types';
 
-import './cart-item.style.scss';
+import { S } from './CartItem.style';
 
 interface CartItemProps {
   item: Item;
@@ -11,13 +11,13 @@ interface CartItemProps {
 export const CartItem: React.FC<CartItemProps> = ({
   item: { imageURL, name, price, quantity },
 }) => (
-  <div className="cart-item">
-    <img src={imageURL} alt={name} />
-    <div className="item-details">
-      <span className="name">{name}</span>
-      <span className="price">
+  <S.Wrapper>
+    <S.Image src={imageURL} alt={name} />
+    <S.ItemDetails>
+      <span>{name}</span>
+      <span>
         {price} x {quantity}
       </span>
-    </div>
-  </div>
+    </S.ItemDetails>
+  </S.Wrapper>
 );

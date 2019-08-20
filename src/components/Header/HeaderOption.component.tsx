@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
+import { S } from './Header.style';
 
 interface HeaderOptionProps {
   path: string;
@@ -7,7 +8,7 @@ interface HeaderOptionProps {
 }
 
 export const HeaderOption: React.FC<HeaderOptionProps> = ({ path, text }) => (
-  <Link key={path} className="option" to={path}>
+  <S.OptionLink key={path} to={path}>
     {text}
-  </Link>
+  </S.OptionLink>
 );

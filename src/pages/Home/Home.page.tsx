@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Directory } from 'components';
 
-import './home.style.scss';
+import { S } from './Home.style';
 
 export const Home: React.FC = () => (
-  <div className="homepage">
+  <S.Wrapper>
     <Directory />
-  </div>
+  </S.Wrapper>
 );

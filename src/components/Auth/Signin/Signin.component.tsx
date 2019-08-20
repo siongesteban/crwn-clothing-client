@@ -4,7 +4,7 @@ import { ObjectSet } from 'types';
 import { Button, Input } from 'components';
 import { FirebaseAuth } from 'services/auth';
 
-import './signin.style.scss';
+import { S } from '../Auth.style';
 
 interface SigninProps {}
 
@@ -49,8 +49,8 @@ export class Signin extends React.Component<SigninProps, SigninState> {
     const { email, password } = this.state;
 
     return (
-      <div className="signin">
-        <h2 className="title">I already have an account</h2>
+      <S.Wrapper>
+        <S.Title>I already have an account</S.Title>
         <span>Sign in with your email and password</span>
 
         <form onSubmit={this.handleSubmit}>
@@ -70,7 +70,7 @@ export class Signin extends React.Component<SigninProps, SigninState> {
             type="password"
             value={password}
           />
-          <div className="buttons">
+          <S.Buttons>
             <Button type="submit">Sign In</Button>
             <Button
               googleSignin={true}
@@ -78,9 +78,9 @@ export class Signin extends React.Component<SigninProps, SigninState> {
             >
               Sign in with Google
             </Button>
-          </div>
+          </S.Buttons>
         </form>
-      </div>
+      </S.Wrapper>
     );
   }
 }

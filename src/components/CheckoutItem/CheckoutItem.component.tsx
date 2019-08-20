@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { CartItem } from 'types';
 import { addItemToCart, clearItemFromCart, removeItemFromCart } from 'actions';
 
-import './checkout-item.style.scss';
+import { S } from './CheckoutItem.style';
 
 interface CheckoutItemProps {
   item: CartItem;
@@ -34,25 +34,19 @@ const C: React.FC<CheckoutItemProps> = ({
   const { id, name, imageURL, quantity, price } = item;
 
   return (
-    <div className="checkout-item">
-      <div className="image-container">
+    <S.Wrapper>
+      <S.ImageWrapper>
         <img src={imageURL} alt={name} />
-      </div>
-      <span className="name">{name}</span>
-      <span className="quantity">
-        <div className="arrow" onClick={handleDecrementClick}>
-          &#10094;
-        </div>
-        <span className="value">{quantity}</span>
-        <div className="arrow" onClick={handleIncrementClick}>
-          &#10095;
-        </div>
-      </span>
-      <span className="price">{price}</span>
-      <div className="remove-button" onClick={handleRemoveClick}>
-        &#10005;
-      </div>
-    </div>
+      </S.ImageWrapper>
+      <S.Text>{name}</S.Text>
+      <S.QuantityWrapper>
+        <div onClick={handleDecrementClick}>&#10094;</div>
+        <span>{quantity}</span>
+        <div onClick={handleIncrementClick}>&#10095;</div>
+      </S.QuantityWrapper>
+      <S.Text>{price}</S.Text>
+      <S.RemoveButton onClick={handleRemoveClick}>&#10005;</S.RemoveButton>
+    </S.Wrapper>
   );
 };
 

@@ -1,9 +1,8 @@
 import React from 'react';
-import classNames from 'classnames';
 
 import { InputChangeHandler } from 'types';
 
-import './input.style.scss';
+import { S } from './Input.style';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   handleChange: InputChangeHandler;
@@ -15,14 +14,10 @@ export const Input: React.FC<InputProps> = ({
   label,
   ...rest
 }) => (
-  <div className="group">
-    <input className="input" onChange={handleChange} {...rest} />
-    {label ? (
-      <label className={classNames({ shrink: !!rest.value }, 'label')}>
-        {label}
-      </label>
-    ) : null}
-  </div>
+  <S.Group>
+    <S.Input onChange={handleChange} {...rest} />
+    {label ? <S.Label shrink={!!rest.value}>{label}</S.Label> : null}
+  </S.Group>
 );
 
 Input.defaultProps = {
