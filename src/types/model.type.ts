@@ -1,27 +1,12 @@
-export type Collection = Pick<Section, 'id' | 'title'> & {
-  path: string;
-  items: Item[];
-};
+export enum SectionSize {
+  LARGE = 'large',
+}
 
-export type Collections = { [key: string]: Collection };
+export type ImageURL = string;
+export type Name = string;
+export type Title = string;
 
 export type FirebaseUser = firebase.User | null;
-
-export interface CartItem extends Item {
-  quantity?: number;
-}
-
-export interface Item {
-  id: number;
-  imageURL: string;
-  name: string;
-  price: number;
-}
-
-export interface Job {
-  title: string;
-  description: string;
-}
 
 export interface Model {
   id?: string;
@@ -29,17 +14,37 @@ export interface Model {
   uid?: string;
 }
 
-export enum SectionSize {
-  LARGE = 'large',
+export interface CartItem extends Item {
+  quantity?: number;
 }
 
-export type Section = Pick<Item, 'id' | 'imageURL'> & {
-  linkURL?: string;
-  size?: SectionSize;
-  title: string;
+export type Collection = Model & {
+  title: Title;
+  path: string;
+  items: Item[];
 };
 
-export interface User extends Model {
+export type Collections = { [key: string]: Collection };
+
+export type Item = Model & {
+  imageURL: ImageURL;
+  name: Name;
+  price: number;
+};
+
+export interface Job {
+  title: string;
+  description: string;
+}
+
+export type Section = Model & {
+  imageURL: ImageURL;
+  linkURL?: string;
+  size?: SectionSize;
+  title: Title;
+};
+
+export type User = Model & {
   displayName: string;
   email: string;
-}
+};
