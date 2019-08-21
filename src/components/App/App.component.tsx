@@ -10,13 +10,13 @@ import { updateSampleName, setUser } from 'actions';
 
 import { S } from './App.style';
 
-interface AppProps {
+interface Props {
   sample: SampleState;
   setUser: typeof setUser;
   updateSampleName: typeof updateSampleName;
 }
 
-class _App extends React.Component<AppProps> {
+class _App extends React.Component<Props> {
   auth = FirebaseAuth.getInstance();
   userService = UserService.getInstance();
 

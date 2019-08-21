@@ -6,19 +6,19 @@ import { FirebaseAuth } from 'services/auth';
 
 import { S } from '../Auth.style';
 
-interface SigninProps {}
+interface Props {}
 
-interface SigninState {
+interface State {
   email: string;
   password: string;
 }
 
-type StateSet = ObjectSet<SigninState>;
+type StateSet = ObjectSet<State>;
 
-export class Signin extends React.Component<SigninProps, SigninState> {
+export class Signin extends React.Component<Props, State> {
   auth = FirebaseAuth.getInstance();
 
-  constructor(props: SigninProps) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {

@@ -6,14 +6,14 @@ import { addItemToCart, clearItemFromCart, removeItemFromCart } from 'actions';
 
 import { S } from './CheckoutItem.style';
 
-interface CheckoutItemProps {
+interface Props {
   item: CartItem;
   addItemToCart: typeof addItemToCart;
   clearItemFromCart: typeof clearItemFromCart;
   removeItemFromCart: typeof removeItemFromCart;
 }
 
-const C: React.FC<CheckoutItemProps> = ({
+const C: React.FC<Props> = ({
   item,
   addItemToCart,
   clearItemFromCart,

@@ -6,15 +6,12 @@ import { addItemToCart } from 'actions';
 
 import { S } from './CollectionItem.style';
 
-interface CollectionItemProps {
+interface Props {
   addItemToCart: typeof addItemToCart;
   item: Item;
 }
 
-const _CollectionItem: React.FC<CollectionItemProps> = ({
-  addItemToCart,
-  item,
-}) => {
+const _CollectionItem: React.FC<Props> = ({ addItemToCart, item }) => {
   const handleAddToCartClick = () => {
     addItemToCart(item);
   };

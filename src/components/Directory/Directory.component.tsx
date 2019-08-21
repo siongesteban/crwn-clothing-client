@@ -8,11 +8,11 @@ import { selectDirectorySections } from 'selectors';
 
 import { S } from './Directory.style';
 
-interface DirectoryProps {
+interface Props {
   sections: Section[];
 }
 
-const C: React.FC<DirectoryProps> = ({ sections }) => (
+const C: React.FC<Props> = ({ sections }) => (
   <S.Wrapper>
     {sections.map(({ id, ...rest }) => (
       <MenuItem key={id} {...rest} />
@@ -20,7 +20,7 @@ const C: React.FC<DirectoryProps> = ({ sections }) => (
   </S.Wrapper>
 );
 
-const mapStateToProps = createStructuredSelector<RootState, DirectoryProps>({
+const mapStateToProps = createStructuredSelector<RootState, Props>({
   sections: selectDirectorySections,
 });
 

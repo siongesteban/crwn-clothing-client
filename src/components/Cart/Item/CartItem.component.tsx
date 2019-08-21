@@ -4,11 +4,11 @@ import { CartItem as Item } from 'types';
 
 import { S } from './CartItem.style';
 
-interface CartItemProps {
+interface Props {
   item: Item;
 }
 
-export const CartItem: React.FC<CartItemProps> = ({
+export const CartItem: React.FC<Props> = ({
   item: { imageURL, name, price, quantity },
 }) => (
   <S.Wrapper>

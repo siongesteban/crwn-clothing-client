@@ -26,12 +26,12 @@ const items: HeaderItem[] = [
   },
 ];
 
-interface HeaderProps {
+interface Props {
   cartIsHidden: boolean;
   isAuthenticated: boolean;
 }
 
-const _Header: React.FC<HeaderProps> = ({ cartIsHidden, isAuthenticated }) => {
+const _Header: React.FC<Props> = ({ cartIsHidden, isAuthenticated }) => {
   const handleSignOut = async () => {
     await FirebaseAuth.getInstance().signOut();
   };
@@ -57,7 +57,7 @@ const _Header: React.FC<HeaderProps> = ({ cartIsHidden, isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = createStructuredSelector<RootState, HeaderProps>({
+const mapStateToProps = createStructuredSelector<RootState, Props>({
   cartIsHidden: selectCartToggleStatus,
   isAuthenticated: selectAuthStatus,
 });

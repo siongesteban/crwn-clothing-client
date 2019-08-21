@@ -5,12 +5,9 @@ import { CollectionItem } from 'components';
 
 import { S } from './CollectionPreview.style';
 
-type CollectionPreviewProps = Omit<Collection, 'id'>;
+type Props = Omit<Collection, 'id'>;
 
-export const CollectionPreview: React.FC<CollectionPreviewProps> = ({
-  title,
-  items,
-}) => (
+export const CollectionPreview: React.FC<Props> = ({ title, items }) => (
   <S.Wrapper>
     <S.Title>{title.toUpperCase()}</S.Title>
     <S.Preview>

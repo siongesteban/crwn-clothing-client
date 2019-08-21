@@ -8,14 +8,14 @@ import { selectCartTotalQuantity } from 'selectors';
 
 import { S } from './CartIcon.style';
 
-interface CartIconProps {
+interface Props {
   totalQuantity: number;
   toggleCart: typeof toggleCart;
 }
 
-type DesiredSelection = Pick<CartIconProps, 'totalQuantity'>;
+type DesiredSelection = Pick<Props, 'totalQuantity'>;
 
-const _CartIcon: React.FC<CartIconProps> = ({ toggleCart, totalQuantity }) => (
+const _CartIcon: React.FC<Props> = ({ toggleCart, totalQuantity }) => (
   <S.Wrapper onClick={toggleCart}>
     <S.BagIcon />
     <S.ItemCount>{totalQuantity}</S.ItemCount>

@@ -9,11 +9,11 @@ import { selectAuthStatus } from 'selectors';
 
 import { S } from './Auth.style';
 
-interface AuthProps {
+interface Props {
   isAuthenticated: boolean;
 }
 
-const _Auth: React.FC<AuthProps> = ({ isAuthenticated }) => (
+const _Auth: React.FC<Props> = ({ isAuthenticated }) => (
   <>
     {isAuthenticated ? (
       <Redirect to="/" />
@@ -30,7 +30,7 @@ _Auth.defaultProps = {
   isAuthenticated: false,
 };
 
-const mapStateToProps = createStructuredSelector<RootState, AuthProps>({
+const mapStateToProps = createStructuredSelector<RootState, Props>({
   isAuthenticated: selectAuthStatus,
 });
 

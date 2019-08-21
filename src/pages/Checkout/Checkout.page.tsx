@@ -8,12 +8,12 @@ import { selectCartItems, selectCartTotal } from 'selectors';
 
 import { S } from './Checkout.style';
 
-interface CheckoutProps {
+interface Props {
   items: CartItem[];
   total: number;
 }
 
-const C: React.FC<CheckoutProps> = ({ items, total }) => (
+const C: React.FC<Props> = ({ items, total }) => (
   <S.Wrapper>
     <S.HeaderWrapper>
       {['Product', 'Description', 'Quantity', 'Price', 'Remove'].map(title => (
@@ -37,7 +37,7 @@ const C: React.FC<CheckoutProps> = ({ items, total }) => (
   </S.Wrapper>
 );
 
-const mapStateToProps = createStructuredSelector<RootState, CheckoutProps>({
+const mapStateToProps = createStructuredSelector<RootState, Props>({
   items: selectCartItems,
   total: selectCartTotal,
 });

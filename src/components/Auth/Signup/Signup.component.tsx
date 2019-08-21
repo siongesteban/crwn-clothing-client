@@ -6,19 +6,19 @@ import { FirebaseAuth } from 'services/auth';
 
 import { S } from '../Auth.style';
 
-interface SignpuProps {}
+interface Props {}
 
-interface SignupState {
+interface State {
   displayName: string;
   email: string;
   password: string;
   confirmPassword: string;
 }
 
-type StateSet = ObjectSet<SignupState>;
+type StateSet = ObjectSet<State>;
 
-export class Signup extends React.Component<SignpuProps, SignupState> {
-  initialState: SignupState = {
+export class Signup extends React.Component<Props, State> {
+  initialState: State = {
     displayName: '',
     email: '',
     password: '',
@@ -26,7 +26,7 @@ export class Signup extends React.Component<SignpuProps, SignupState> {
   };
   auth = FirebaseAuth.getInstance();
 
-  constructor(props: SignpuProps) {
+  constructor(props: Props) {
     super(props);
 
     this.state = this.initialState;

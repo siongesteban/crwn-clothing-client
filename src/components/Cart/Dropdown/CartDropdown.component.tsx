@@ -10,14 +10,14 @@ import { selectCartItems } from 'selectors';
 
 import { S } from './CartDropdown.style';
 
-interface CartDropdownProps extends RouteComponentProps {
+interface Props extends RouteComponentProps {
   items: Item[];
   toggleCart: typeof toggleCart;
 }
 
-type DesiredSelection = Pick<CartDropdownProps, 'items'>;
+type DesiredSelection = Pick<Props, 'items'>;
 
-const C: React.FC<CartDropdownProps> = ({ items, history, toggleCart }) => {
+const C: React.FC<Props> = ({ items, history, toggleCart }) => {
   const handleGoToCheckoutClick = () => {
     toggleCart();
     history.push('/checkout');

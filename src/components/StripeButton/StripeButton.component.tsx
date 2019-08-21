@@ -4,11 +4,11 @@ import StripeCheckout, { Token } from 'react-stripe-checkout';
 import { Item } from 'types';
 import { env } from 'configs';
 
-interface StripeButtonProps {
+interface Props {
   price: Item['price'];
 }
 
-export const StripeButton: React.FC<StripeButtonProps> = ({ price }) => {
+export const StripeButton: React.FC<Props> = ({ price }) => {
   const handleToken = (token: Token) => {
     console.log('Payment Token:', token);
     alert('Payment successful');

@@ -8,13 +8,13 @@ import { selectShopCollection } from 'selectors';
 
 import { S } from './Collection.style';
 
-type CollectionProps = RouteComponentProps<{
+type Props = RouteComponentProps<{
   collectionId: string;
 }> & {
   collection: CollectionType;
 };
 
-const C: React.FC<CollectionProps> = ({ collection }) => {
+const C: React.FC<Props> = ({ collection }) => {
   const { title, items } = collection;
 
   return (
@@ -29,7 +29,7 @@ const C: React.FC<CollectionProps> = ({ collection }) => {
   );
 };
 
-const mapStateToProps = (state: RootState, props: CollectionProps) => ({
+const mapStateToProps = (state: RootState, props: Props) => ({
   collection: selectShopCollection(props.match.params.collectionId)(
     state,
   ) as CollectionType,

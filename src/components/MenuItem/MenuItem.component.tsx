@@ -5,9 +5,9 @@ import { Section } from 'types';
 
 import { S } from './MenuItem.style';
 
-type MenuItemProps = Omit<Section, 'id'> & RouteComponentProps;
+type Props = Omit<Section, 'id'> & RouteComponentProps;
 
-class _MenuItem extends React.Component<MenuItemProps> {
+class _MenuItem extends React.Component<Props> {
   handleClick = () => {
     const { history, linkURL, match } = this.props;
     history.push(`${match.url}shop/${linkURL}`);
