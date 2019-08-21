@@ -7,8 +7,13 @@ export const S = {
     margin-bottom: 30px;
   `,
   Title: styled.h1`
+    cursor: pointer;
     font-size: 28px;
     margin-bottom: 25px;
+
+    &:hover {
+      color: grey;
+    }
   `,
   Preview: styled.div`
     display: flex;
