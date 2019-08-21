@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { RootState, SampleState } from 'types';
 import { Header } from 'components';
-import { Auth, Checkout, Home, Shop } from 'pages';
+import { AuthPage, CheckoutPage, HomePage, ShopPage } from 'pages';
 import { FirebaseAuth, UserService } from 'services';
 import { updateSampleName, setUser } from 'actions';
 
@@ -42,10 +42,10 @@ class _App extends React.Component<AppProps> {
         <S.GlobalStyle />
         <Header />
         <Switch>
-          <Route exact={true} path="/" component={Home} />
-          <Route path="/shop" component={Shop} />
-          <Route path="/checkout" component={Checkout} />
-          <Route exact={true} path="/signin" component={Auth} />
+          <Route exact={true} path="/" component={HomePage} />
+          <Route path="/shop" component={ShopPage} />
+          <Route path="/checkout" component={CheckoutPage} />
+          <Route exact={true} path="/signin" component={AuthPage} />
         </Switch>
       </>
     );

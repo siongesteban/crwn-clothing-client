@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Route, RouteComponentProps } from 'react-router-dom';
 
 import { Collections } from 'types';
-import { Collection } from 'pages';
+import { CollectionPage } from 'pages';
 import { CollectionOverview } from 'components';
 import { setShopCollections } from 'actions';
 import { CollectionService } from 'services';
@@ -44,7 +44,10 @@ class C extends React.Component<Props> {
           path={`${match.path}`}
           component={CollectionOverview}
         />
-        <Route path={`${match.path}/:collectionId`} component={Collection} />
+        <Route
+          path={`${match.path}/:collectionId`}
+          component={CollectionPage}
+        />
       </>
     );
   }
@@ -57,4 +60,4 @@ const CConnected = connect(
   dispatchProps,
 )(C);
 
-export const Shop = CConnected;
+export const ShopPage = CConnected;

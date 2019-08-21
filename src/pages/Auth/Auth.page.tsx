@@ -34,4 +34,4 @@ const mapStateToProps = createStructuredSelector<RootState, AuthProps>({
   isAuthenticated: selectAuthStatus,
 });
 
-export const Auth = connect(mapStateToProps)(_Auth);
+export const AuthPage = connect(mapStateToProps)(_Auth);

@@ -4,7 +4,7 @@ import { Directory } from 'components';
 
 import { S } from './Home.style';
 
-export const Home: React.FC = () => (
+export const HomePage: React.FC = () => (
   <S.Wrapper>
     <Directory />
   </S.Wrapper>

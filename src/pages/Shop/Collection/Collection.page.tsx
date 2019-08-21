@@ -37,4 +37,4 @@ const mapStateToProps = (state: RootState, props: CollectionProps) => ({
 
 const CConnected = connect(mapStateToProps)(C);
 
-export const Collection = CConnected;
+export const CollectionPage = CConnected;

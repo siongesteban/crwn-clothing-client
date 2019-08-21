@@ -44,4 +44,4 @@ const mapStateToProps = createStructuredSelector<RootState, CheckoutProps>({
 
 const CConnected = connect(mapStateToProps)(C);
 
-export const Checkout = CConnected;
+export const CheckoutPage = CConnected;
