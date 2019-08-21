@@ -1,5 +1,3 @@
-import uuid from 'uuid/v4';
-
 import { Model } from 'types';
 import { BaseService } from 'services';
 import { firebase } from 'services/clients';
@@ -41,16 +39,13 @@ export class FirestoreService<T extends Model> extends BaseService<
 
   async create(data: T) {
     try {
-      const id = data.uid || uuid();
-
-      delete data.uid;
-
-      const doc = this.collection.doc(id);
+      const doc = this.collection.doc();
+      const id = data.uid || doc.id;
 
       await doc.set({
+        ...data,
         id,
         createdAt: new Date(),
-        ...data,
       });
 
       return data;
