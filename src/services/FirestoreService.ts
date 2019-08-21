@@ -1,4 +1,4 @@
-import { Model } from 'types';
+import { Model, OperationType, FirestoreBatchDocs } from 'types';
 import { BaseService } from 'services';
 import { firebase } from 'services/clients';
 
@@ -10,7 +10,7 @@ export class FirestoreService<T extends Model> extends BaseService<
   Firestore
 > {
   protected client: Firestore;
-  private collection: CollectionReference;
+  protected collection: CollectionReference;
 
   constructor(path: string) {
     super();
@@ -37,6 +37,46 @@ export class FirestoreService<T extends Model> extends BaseService<
     }
   }
 
+  async batchCreate(data: T[], subItemKeys?: string[]) {
+    try {
+      const batchDocs: FirestoreBatchDocs = [];
+
+      data.forEach(item => {
+        const doc = this.collection.doc();
+
+        if (subItemKeys && subItemKeys.length) {
+          subItemKeys.forEach(subItemKey => {
+            const newSubItems = doc.collection(subItemKey);
+            const tempItem = item as any;
+
+            (tempItem[subItemKey] || []).forEach((item: any) => {
+              const newItem = newSubItems.doc();
+
+              batchDocs.push({
+                ref: newItem,
+                data: item,
+              });
+            });
+
+            delete tempItem[subItemKey];
+          });
+        }
+
+        batchDocs.push({
+          ref: doc,
+          data: item,
+        });
+      });
+
+      await this.performBatch(batchDocs, OperationType.CREATE);
+
+      return data;
+    } catch (e) {
+      console.error('@FirestoreService::batchCreate', e.message);
+      return [];
+    }
+  }
+
   async create(data: T) {
     try {
       const doc = this.collection.doc();
@@ -53,5 +93,24 @@ export class FirestoreService<T extends Model> extends BaseService<
       console.error('@FirestoreService::create', e.message);
       return null;
     }
+  }
+
+  protected performBatch<T extends Model>(
+    docs: FirestoreBatchDocs<T>,
+    operationType: OperationType,
+  ): Promise<void> {
+    const batch = this.client.batch();
+
+    if (operationType === OperationType.CREATE) {
+      docs.forEach(({ ref, data }) => {
+        batch.set(ref, {
+          ...data,
+          id: ref.id,
+          createdAt: new Date(),
+        });
+      });
+    }
+
+    return batch.commit();
   }
 }
