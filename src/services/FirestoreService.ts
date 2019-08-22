@@ -112,7 +112,7 @@ export class FirestoreService<T extends Model> extends BaseService<
 
   async create(data: T) {
     try {
-      const doc = this.collection.doc();
+      const doc = this.collection.doc(data.uid);
       const id = data.uid || doc.id;
 
       await doc.set({
