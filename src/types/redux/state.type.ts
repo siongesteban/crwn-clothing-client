@@ -1,7 +1,6 @@
 import { DeepReadonly } from 'utility-types';
 
-import { Job, User, CartItem, Section } from 'types';
-import { Collections } from './model.type';
+import { Collections, Job, User, CartItem, Section } from 'types';
 
 export interface StateError {
   message: string;
