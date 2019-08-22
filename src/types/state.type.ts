@@ -27,7 +27,7 @@ export type SampleState = DeepReadonly<{
 }>;
 
 export type ShopState = DeepReadonly<{
-  collections: Collections;
+  collections: Collections | null;
 }>;
 
 export type UserState = DeepReadonly<User | null>;
