@@ -6,7 +6,7 @@ import logger from 'redux-logger';
 
 import { localforage } from 'services/clients';
 import { rootReducer } from 'reducers';
-import { shopSaga } from 'sagas';
+import { rootSaga } from 'sagas';
 
 export const configureStore = () => {
   const sagaMiddleware = createSagaMiddleware();
@@ -25,7 +25,7 @@ export const configureStore = () => {
   const store = createStore(persistedReducer, composedEnhancers);
   const persistor = persistStore(store);
 
-  sagaMiddleware.run(shopSaga);
+  sagaMiddleware.run(rootSaga);
 
   return { store, persistor };
 };

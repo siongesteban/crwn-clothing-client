@@ -1,8 +1,12 @@
-import { takeEvery, all, put, call } from 'redux-saga/effects';
+import { takeLatest, all, put, call } from 'redux-saga/effects';
 
 import { ActionType, Collections, Collection } from 'types';
 import { collectionService } from 'services';
 import { fetchCollectionsSuccess, fetchCollectionsError } from 'actions';
+
+export function* shopSaga() {
+  yield all([call(watchFetchCollectionsStart)]);
+}
 
 function* fetchCollectionsWorker() {
   try {
@@ -33,9 +37,5 @@ function* fetchCollectionsWorker() {
 }
 
 function* watchFetchCollectionsStart() {
-  yield takeEvery(ActionType.FETCH_COLLECTIONS_START, fetchCollectionsWorker);
-}
-
-export function* shopSaga() {
-  yield all([watchFetchCollectionsStart()]);
+  yield takeLatest(ActionType.FETCH_COLLECTIONS_START, fetchCollectionsWorker);
 }
