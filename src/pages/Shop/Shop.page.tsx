@@ -1,15 +1,9 @@
 import React from 'react';
-import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Route, RouteComponentProps } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
-import {
-  CollectionOverviewProps,
-  CollectionPageProps,
-  RootState,
-  Action
-} from 'types';
+import { CollectionOverviewProps, CollectionPageProps, RootState } from 'types';
 import { CollectionPage } from 'pages';
 import { CollectionOverview } from 'components';
 import { selectIsCollectionFetching } from 'selectors';
@@ -61,12 +55,11 @@ class C extends React.Component<Props> {
 const mapStateToProps = createStructuredSelector<RootState, DesiredSelection>({
   loading: selectIsCollectionFetching,
 });
-const mapDispatchToProps = (dispatch: Dispatch<Action>) =>
-  bindActionCreators({ fetchCollections }, dispatch);
+const dispatchProps = { fetchCollections };
 
 const CConnected = connect(
   mapStateToProps,
-  mapDispatchToProps,
+  dispatchProps,
 )(C);
 
 export const ShopPage = CConnected;

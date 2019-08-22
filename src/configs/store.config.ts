@@ -1,14 +1,17 @@
 import { applyMiddleware, createStore } from 'redux';
 import { persistStore, persistReducer, PersistConfig } from 'redux-persist';
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 
 import { localforage } from 'services/clients';
 import { rootReducer } from 'reducers';
+import { shopSaga } from 'sagas';
 
 export const configureStore = () => {
-  const middlewares = [thunk, logger];
+  const sagaMiddleware = createSagaMiddleware();
+
+  const middlewares = [sagaMiddleware, logger];
   const middlewareEnhancer = applyMiddleware(...middlewares);
   const composedEnhancers = composeWithDevTools(middlewareEnhancer);
 
@@ -21,6 +24,8 @@ export const configureStore = () => {
   const persistedReducer = persistReducer(persistConfig, rootReducer);
   const store = createStore(persistedReducer, composedEnhancers);
   const persistor = persistStore(store);
+
+  sagaMiddleware.run(shopSaga);
 
   return { store, persistor };
 };

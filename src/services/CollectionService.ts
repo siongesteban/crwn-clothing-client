@@ -28,3 +28,5 @@ export class CollectionService extends FirestoreService<Collection> {
     }
   }
 }
+
+export const collectionService = CollectionService.getInstance();

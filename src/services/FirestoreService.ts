@@ -20,29 +20,36 @@ export class FirestoreService<T extends Model> extends BaseService<
   }
 
   async find(params: { subItemKeys?: string[] } = {}) {
-    const { subItemKeys } = params;
-    const { docs } = await this.collection.get();
+    try {
+      const { subItemKeys } = params;
+      const { docs } = await this.collection.get();
 
-    const result: T[] = [];
+      const result: T[] = [];
 
-    for (const doc of docs) {
-      const data = doc.data() as T;
-      const tempData = data as any;
+      for (const doc of docs) {
+        const data = doc.data() as T;
+        const tempData = data as any;
 
-      if (subItemKeys && subItemKeys.length) {
-        for (const subItemKey of subItemKeys) {
-          const { docs: subItems } = await doc.ref.collection(subItemKey).get();
+        if (subItemKeys && subItemKeys.length) {
+          for (const subItemKey of subItemKeys) {
+            const { docs: subItems } = await doc.ref
+              .collection(subItemKey)
+              .get();
 
-          if (subItems.length) {
-            tempData[subItemKey] = subItems.map(subItem => subItem.data());
+            if (subItems.length) {
+              tempData[subItemKey] = subItems.map(subItem => subItem.data());
+            }
           }
         }
+
+        result.push(tempData as T);
       }
 
-      result.push(tempData as T);
+      return result;
+    } catch (e) {
+      console.error('@FirestoreService::find', e.message);
+      return [];
     }
-
-    return result;
   }
 
   async get(id: string) {
