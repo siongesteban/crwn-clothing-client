@@ -8,7 +8,7 @@ import {
 } from 'types';
 import { CollectionItem } from 'components';
 import { withSpinner } from 'hocs';
-import { selectShopCollection } from 'selectors';
+import { selectCollection } from 'selectors';
 
 import { S } from './Collection.style';
 
@@ -34,7 +34,7 @@ const C: React.FC<Props> = ({ collection }) => {
 };
 
 const mapStateToProps = (state: RootState, props: Props) => ({
-  collection: selectShopCollection(props.match.params.collectionId)(
+  collection: selectCollection(props.match.params.collectionId)(
     state,
   ) as CollectionType,
 });

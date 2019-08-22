@@ -4,12 +4,12 @@ import { RootState, Collection, Collections } from 'types';
 
 const selectShop = ({ shop }: RootState) => shop;
 
-export const selectShopCollections = createSelector(
+export const selectCollections = createSelector(
   [selectShop],
   ({ collections }) => collections as Collections,
 );
 
-export const selectShopCollectionsForPreview = createSelector(
+export const selectCollectionsForPreview = createSelector(
   [selectShop],
   ({ collections }) =>
     !collections
@@ -17,8 +17,13 @@ export const selectShopCollectionsForPreview = createSelector(
       : (Object.keys(collections).map(key => collections[key]) as Collection[]),
 );
 
-export const selectShopCollection = (collectionId: string) =>
+export const selectCollection = (collectionId: string) =>
   createSelector(
-    [selectShopCollections],
+    [selectCollections],
     collections => (!collections ? null : collections[collectionId]),
   );
+
+export const selectIsCollectionFetching = createSelector(
+  [selectShop],
+  ({ isFetching }) => isFetching,
+);

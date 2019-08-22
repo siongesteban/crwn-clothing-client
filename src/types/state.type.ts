@@ -3,6 +3,11 @@ import { DeepReadonly } from 'utility-types';
 import { Job, User, CartItem, Section } from 'types';
 import { Collections } from './model.type';
 
+export interface StateError {
+  message: string;
+  data?: any;
+}
+
 export interface RootState {
   cart: CartState;
   directory: DirectoryState;
@@ -28,6 +33,8 @@ export type SampleState = DeepReadonly<{
 
 export type ShopState = DeepReadonly<{
   collections: Collections | null;
+  isFetching: boolean;
+  error: StateError | null;
 }>;
 
 export type UserState = DeepReadonly<User | null>;

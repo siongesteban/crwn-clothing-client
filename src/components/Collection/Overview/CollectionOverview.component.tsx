@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import { Collection, CollectionOverviewProps, RootState } from 'types';
 import { CollectionPreview } from 'components';
 import { withSpinner } from 'hocs';
-import { selectShopCollectionsForPreview } from 'selectors';
+import { selectCollectionsForPreview } from 'selectors';
 
 import { S } from './CollectionOverview.style';
 
@@ -20,7 +20,7 @@ const C: React.FC<Props> = ({ collections }) => (
 );
 
 const mapStateToProps = createStructuredSelector<RootState, Props>({
-  collections: selectShopCollectionsForPreview,
+  collections: selectCollectionsForPreview,
 });
 
 const CWithSpinner = withSpinner<Props>(C);

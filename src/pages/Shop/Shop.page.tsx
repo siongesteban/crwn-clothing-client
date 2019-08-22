@@ -1,64 +1,40 @@
 import React from 'react';
+import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Route, RouteComponentProps } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
 
 import {
-  Collections,
   CollectionOverviewProps,
-  CollectionPageProps
+  CollectionPageProps,
+  RootState,
+  Action
 } from 'types';
 import { CollectionPage } from 'pages';
 import { CollectionOverview } from 'components';
-import { setShopCollections } from 'actions';
-import { CollectionService } from 'services';
+import { selectIsCollectionFetching } from 'selectors';
+import { fetchCollections } from 'actions';
 
 type Props = RouteComponentProps & {
-  setShopCollections: typeof setShopCollections;
+  loading: boolean;
+  fetchCollections: typeof fetchCollections;
 };
 
-interface State {
-  loading: boolean;
-}
+type DesiredSelection = Pick<Props, 'loading'>;
 
-class C extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      loading: true,
-    };
-  }
-
-  async componentDidMount() {
-    const { setShopCollections } = this.props;
-    const collections = await this.getCollections();
-
-    setShopCollections(collections);
-    this.setState({ loading: false });
-  }
-
-  async getCollections(): Promise<Collections> {
-    const collections = await CollectionService.getInstance().find({
-      subItemKeys: ['items'],
-    });
-
-    return collections.reduce((accumulator, collection) => {
-      (accumulator as Collections)[
-        collection.title.toLocaleLowerCase()
-      ] = collection;
-
-      return accumulator;
-    }, {});
+class C extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchCollections();
   }
 
   renderCollectionOverview = (props: CollectionOverviewProps) => {
-    const { loading } = this.state;
+    const { loading } = this.props;
 
     return <CollectionOverview loading={loading} {...props} />;
   };
 
   renderCollectionPage = (props: CollectionPageProps) => {
-    const { loading } = this.state;
+    const { loading } = this.props;
 
     return <CollectionPage loading={loading} {...props} />;
   };
@@ -82,11 +58,15 @@ class C extends React.Component<Props, State> {
   }
 }
 
-const dispatchProps = { setShopCollections };
+const mapStateToProps = createStructuredSelector<RootState, DesiredSelection>({
+  loading: selectIsCollectionFetching,
+});
+const mapDispatchToProps = (dispatch: Dispatch<Action>) =>
+  bindActionCreators({ fetchCollections }, dispatch);
 
 const CConnected = connect(
-  undefined,
-  dispatchProps,
+  mapStateToProps,
+  mapDispatchToProps,
 )(C);
 
 export const ShopPage = CConnected;

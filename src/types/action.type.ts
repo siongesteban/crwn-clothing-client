@@ -1,5 +1,6 @@
 import { CartItem, User } from 'types';
 import { Collections } from './model.type';
+import { StateError } from './state.type';
 
 /*
  * Action Types
@@ -16,7 +17,9 @@ export enum ActionType {
   TOGGLE_CART = '@@cart/TOGGLE',
 
   // shop
-  SET_SHOP_COLLECTIONS = '@@shop/SET_COLLECTIONS',
+  FETCH_COLLECTIONS_START = '@@shop/FETCH_COLLECTIONS_START',
+  FETCH_COLLECTIONS_SUCCESS = '@@shop/FETCH_COLLECTIONS_SUCCESS',
+  FETCH_COLLECTIONS_ERROR = '@@shop/FETCH_COLLECTIONS_ERROR',
 
   // user
   SET_USER = '@@user/SET',
@@ -65,10 +68,21 @@ export type RemoveItemFromCart = Pick<ClearItemFromCart, 'payload'> & {
 };
 
 // Shop
-export type SetShopCollections = {
-  type: ActionType.SET_SHOP_COLLECTIONS;
+export type FetchCollectionsStart = {
+  type: ActionType.FETCH_COLLECTIONS_START;
+};
+
+export type FetchCollectionsSuccess = {
+  type: ActionType.FETCH_COLLECTIONS_SUCCESS;
   payload: {
     collections: Collections;
+  };
+};
+
+export type FetchCollectionsError = {
+  type: ActionType.FETCH_COLLECTIONS_ERROR;
+  payload: {
+    error: StateError;
   };
 };
 
@@ -84,7 +98,9 @@ export type Action =
   | AddItemToCart
   | ClearItemFromCart
   | RemoveItemFromCart
-  | SetShopCollections
+  | FetchCollectionsStart
+  | FetchCollectionsSuccess
+  | FetchCollectionsError
   | SetUser
   | ToggleCart
   | UpdateSampleAge
