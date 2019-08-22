@@ -2,15 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { Collection, RootState } from 'types';
+import { Collection, CollectionOverviewProps, RootState } from 'types';
 import { CollectionPreview } from 'components';
+import { withSpinner } from 'hocs';
 import { selectShopCollectionsForPreview } from 'selectors';
 
 import { S } from './CollectionOverview.style';
 
-interface Props {
-  collections: Collection[];
-}
+type Props = CollectionOverviewProps;
 
 const C: React.FC<Props> = ({ collections }) => (
   <S.Wrapper>
@@ -24,6 +23,7 @@ const mapStateToProps = createStructuredSelector<RootState, Props>({
   collections: selectShopCollectionsForPreview,
 });
 
-const CConnected = connect(mapStateToProps)(C);
+const CWithSpinner = withSpinner<Props>(C);
+const CConnected = connect(mapStateToProps)(CWithSpinner);
 
 export const CollectionOverview = CConnected;

@@ -1,20 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
 
-import { Collection as CollectionType, RootState } from 'types';
+import {
+  Collection as CollectionType,
+  RootState,
+  CollectionPageProps
+} from 'types';
 import { CollectionItem } from 'components';
+import { withSpinner } from 'hocs';
 import { selectShopCollection } from 'selectors';
 
 import { S } from './Collection.style';
 
-type Props = RouteComponentProps<{
-  collectionId: string;
-}> & {
-  collection: CollectionType;
-};
+type Props = CollectionPageProps;
 
 const C: React.FC<Props> = ({ collection }) => {
+  if (!collection) {
+    return <div>Loading</div>;
+  }
+
   const { title, items } = collection;
 
   return (
@@ -35,6 +39,7 @@ const mapStateToProps = (state: RootState, props: Props) => ({
   ) as CollectionType,
 });
 
-const CConnected = connect(mapStateToProps)(C);
+const CWithSpinner = withSpinner(C);
+const CConnected = connect(mapStateToProps)(CWithSpinner);
 
 export const CollectionPage = CConnected;
