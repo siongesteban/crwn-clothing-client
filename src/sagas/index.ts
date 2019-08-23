@@ -1,7 +1,8 @@
 import { all, call } from 'redux-saga/effects';
 
-import { shopSaga } from './shop.saga';
+import { shopSagas } from './shop.saga';
+import { userSagas } from './user.saga';
 
 export function* rootSaga() {
-  yield all([call(shopSaga)]);
+  yield all([call(shopSagas), call(userSagas)]);
 }

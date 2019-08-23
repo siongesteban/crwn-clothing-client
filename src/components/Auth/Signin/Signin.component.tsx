@@ -1,12 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { ObjectSet } from 'types';
 import { Button, Input } from 'components';
 import { FirebaseAuth } from 'services/auth';
+import { signInWithEmail, signInWithGoogle } from 'actions';
 
 import { S } from '../Auth.style';
 
-interface Props {}
+interface Props {
+  signInWithGoogle: typeof signInWithGoogle;
+  signInWithEmail: typeof signInWithEmail;
+}
 
 interface State {
   email: string;
@@ -15,7 +20,7 @@ interface State {
 
 type StateSet = ObjectSet<State>;
 
-export class Signin extends React.Component<Props, State> {
+class C extends React.Component<Props, State> {
   auth = FirebaseAuth.getInstance();
 
   constructor(props: Props) {
@@ -27,25 +32,20 @@ export class Signin extends React.Component<Props, State> {
     };
   }
 
-  handleSignInWithGoogleClick = async () => {
-    await this.auth.signInWithGoogle();
-  };
-
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
 
     this.setState({ [name]: value } as StateSet);
   };
 
-  handleSubmit = async (e: React.FormEvent) => {
+  handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    await this.auth.signIn(this.state);
-
-    this.setState({ email: '', password: '' });
+    this.props.signInWithEmail(this.state);
   };
 
   render() {
+    const { signInWithGoogle } = this.props;
     const { email, password } = this.state;
 
     return (
@@ -72,10 +72,7 @@ export class Signin extends React.Component<Props, State> {
           />
           <S.Buttons>
             <Button type="submit">Sign In</Button>
-            <Button
-              googleSignin={true}
-              onClick={this.handleSignInWithGoogleClick}
-            >
+            <Button googleSignin={true} onClick={signInWithGoogle}>
               Sign in with Google
             </Button>
           </S.Buttons>
@@ -84,3 +81,12 @@ export class Signin extends React.Component<Props, State> {
     );
   }
 }
+
+const dispatchProps = { signInWithEmail, signInWithGoogle };
+
+const CConnected = connect(
+  undefined,
+  dispatchProps,
+)(C);
+
+export const Signin = CConnected;

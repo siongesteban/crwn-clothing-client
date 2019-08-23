@@ -1,5 +1,4 @@
 import { Collection } from 'types';
-// import { Collection, FirestoreBatchDocs, Item, OperationType } from 'types';
 import { FirestoreService } from 'services';
 
 export class CollectionService extends FirestoreService<Collection> {

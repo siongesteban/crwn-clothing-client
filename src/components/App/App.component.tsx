@@ -5,35 +5,22 @@ import { connect } from 'react-redux';
 import { RootState, SampleState } from 'types';
 import { Header } from 'components';
 import { AuthPage, CheckoutPage, HomePage, ShopPage } from 'pages';
-import { FirebaseAuth, UserService } from 'services';
-import { updateSampleName, setUser } from 'actions';
+import { updateSampleName } from 'actions';
 
 import { S } from './App.style';
 
 interface Props {
   sample: SampleState;
-  setUser: typeof setUser;
   updateSampleName: typeof updateSampleName;
 }
 
 class _App extends React.Component<Props> {
-  auth = FirebaseAuth.getInstance();
-  userService = UserService.getInstance();
-
   async componentDidMount() {
-    const { sample, updateSampleName, setUser } = this.props;
+    const { sample, updateSampleName } = this.props;
 
     console.log('sample state:', sample);
 
     updateSampleName('Jane');
-
-    await this.auth.authenticate(authUser => {
-      setUser(authUser);
-    });
-  }
-
-  componentWillUnmount() {
-    this.auth.unsubscribe();
   }
 
   render() {
@@ -54,7 +41,7 @@ class _App extends React.Component<Props> {
 
 const mapStateToProps = ({ sample }: RootState) => ({ sample });
 
-const dispatchProps = { updateSampleName, setUser };
+const dispatchProps = { updateSampleName };
 
 export const App = connect(
   mapStateToProps,

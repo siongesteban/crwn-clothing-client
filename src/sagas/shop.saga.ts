@@ -4,8 +4,12 @@ import { ActionType, Collections, Collection } from 'types';
 import { collectionService } from 'services';
 import { fetchCollectionsSuccess, fetchCollectionsError } from 'actions';
 
-export function* shopSaga() {
-  yield all([call(watchFetchCollectionsStart)]);
+export function* shopSagas() {
+  yield all([call(watchFetchCollections)]);
+}
+
+function* watchFetchCollections() {
+  yield takeLatest(ActionType.FETCH_COLLECTIONS_START, fetchCollectionsWorker);
 }
 
 function* fetchCollectionsWorker() {
@@ -30,12 +34,8 @@ function* fetchCollectionsWorker() {
   } catch (e) {
     const { message } = e;
 
-    console.error('@fetchCollections', message);
+    console.error('@fetchCollectionsWorker', message);
 
     yield put(fetchCollectionsError({ message }));
   }
-}
-
-function* watchFetchCollectionsStart() {
-  yield takeLatest(ActionType.FETCH_COLLECTIONS_START, fetchCollectionsWorker);
 }

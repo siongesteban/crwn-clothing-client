@@ -73,12 +73,37 @@ export class FirebaseAuth extends BaseAuth<Client, void> {
     });
   }
 
-  async signIn(credentials: AuthCredentials): Promise<void> {
+  async signInWithEmail(credentials: AuthCredentials): Promise<User | null> {
     try {
       const { email, password } = credentials;
-      await this.client.signInWithEmailAndPassword(email, password);
+
+      const {
+        user: firebaseUser,
+      } = await this.client.signInWithEmailAndPassword(email, password);
+
+      const user = await this.getUser(firebaseUser as User);
+
+      return user;
     } catch (e) {
-      console.error('@FirebaseAuth::signIn', e.message);
+      console.error('@FirebaseAuth::signInWithEmail', e.message);
+      throw e;
+    }
+  }
+
+  async signInWithGoogle(): Promise<User | null> {
+    try {
+      const { client, provider } = this;
+
+      const { user: firebaseUser } = await client.signInWithPopup(
+        provider[AuthProvider.GOOGLE],
+      );
+
+      const user = await this.getUser(firebaseUser as User);
+
+      return user;
+    } catch (e) {
+      console.error('@FirebaseAuth::signInWithEmail', e.message);
+      return null;
     }
   }
 
@@ -113,12 +138,6 @@ export class FirebaseAuth extends BaseAuth<Client, void> {
     unsubscribeFromAuth && unsubscribeFromAuth();
   }
 
-  signInWithGoogle() {
-    const { client, provider } = this;
-
-    client.signInWithPopup(provider[AuthProvider.GOOGLE]);
-  }
-
   private createAuthProvider(
     providerName: AuthProvider,
   ): firebase.auth.AuthProvider {
@@ -130,5 +149,21 @@ export class FirebaseAuth extends BaseAuth<Client, void> {
       default:
         return new firebase.auth.EmailAuthProvider();
     }
+  }
+
+  private async getUser(firebaseUser: User): Promise<User> {
+    const { displayName, email, uid } = firebaseUser;
+
+    let userFromDB = uid && (await this.userService.get(uid));
+
+    if (!userFromDB) {
+      userFromDB = await this.userService.create({
+        uid,
+        displayName,
+        email,
+      } as User);
+    }
+
+    return userFromDB as Required<User>;
   }
 }

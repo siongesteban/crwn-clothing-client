@@ -1,4 +1,4 @@
-import { Collections, StateError } from 'types';
+import { Collections, StateErrorPayload } from 'types';
 
 export enum ShopActionType {
   FETCH_COLLECTIONS_START = '@@shop/FETCH_COLLECTIONS_START',
@@ -19,9 +19,7 @@ export type FetchCollectionsSuccess = {
 
 export type FetchCollectionsError = {
   type: ShopActionType.FETCH_COLLECTIONS_ERROR;
-  payload: {
-    error: StateError;
-  };
+  payload: StateErrorPayload;
 };
 
 export type ShopAction =

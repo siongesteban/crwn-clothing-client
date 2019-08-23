@@ -7,6 +7,10 @@ export interface StateError {
   data?: any;
 }
 
+export interface StateErrorPayload {
+  error: StateError;
+}
+
 export interface RootState {
   cart: CartState;
   directory: DirectoryState;
@@ -36,4 +40,7 @@ export type ShopState = DeepReadonly<{
   error: StateError | null;
 }>;
 
-export type UserState = DeepReadonly<User | null>;
+export type UserState = DeepReadonly<{
+  data: User | null;
+  error: StateError | null;
+}>;

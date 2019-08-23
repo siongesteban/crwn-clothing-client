@@ -6,5 +6,5 @@ const selectUser = ({ user }: RootState) => user;
 
 export const selectAuthStatus = createSelector(
   [selectUser],
-  user => !!user,
+  ({ data }) => !!data,
 );
