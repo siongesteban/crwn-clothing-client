@@ -10,7 +10,11 @@ import {
   AuthenticateUser,
   SignOutStart,
   SignOutSuccess,
-  SignOutError
+  SignOutError,
+  SignupCredentials,
+  SignUpStart,
+  SignUpError,
+  SignUpSuccess
 } from 'types';
 
 export const authenticateUser = (): AuthenticateUser => ({
@@ -35,6 +39,21 @@ export const signInSuccess = (user: User): SignInSuccess => ({
 
 export const signInError = (error: StateError): SignInError => ({
   type: ActionType.SIGN_IN_ERROR,
+  payload: { error },
+});
+
+export const signUp = (data: SignupCredentials): SignUpStart => ({
+  type: ActionType.SIGN_UP_START,
+  payload: { data },
+});
+
+export const signUpSuccess = (user: User): SignUpSuccess => ({
+  type: ActionType.SIGN_UP_SUCCESS,
+  payload: { user },
+});
+
+export const signUpError = (error: StateError): SignUpError => ({
+  type: ActionType.SIGN_UP_ERROR,
   payload: { error },
 });
 

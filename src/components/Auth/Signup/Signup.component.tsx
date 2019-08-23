@@ -1,12 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { ObjectSet } from 'types';
 import { Button, Input } from 'components';
-import { FirebaseAuth } from 'services/auth';
+import { signUp } from 'actions';
 
 import { S } from '../Auth.style';
 
-interface Props {}
+interface Props {
+  signUp: typeof signUp;
+}
 
 interface State {
   displayName: string;
@@ -17,19 +20,16 @@ interface State {
 
 type StateSet = ObjectSet<State>;
 
-export class Signup extends React.Component<Props, State> {
-  initialState: State = {
-    displayName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  };
-  auth = FirebaseAuth.getInstance();
-
+class C extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    this.state = this.initialState;
+    this.state = {
+      displayName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    };
   }
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,16 +41,9 @@ export class Signup extends React.Component<Props, State> {
   handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const { password, confirmPassword } = this.state;
+    const { signUp } = this.props;
 
-    if (password !== confirmPassword) {
-      alert(`Passwords don't match!`);
-      return;
-    }
-
-    await this.auth.signUp(this.state);
-
-    this.setState(this.initialState);
+    signUp(this.state);
   };
 
   render() {
@@ -101,3 +94,12 @@ export class Signup extends React.Component<Props, State> {
     );
   }
 }
+
+const dispatchProps = { signUp };
+
+const CConnected = connect(
+  undefined,
+  dispatchProps,
+)(C);
+
+export const Signup = CConnected;

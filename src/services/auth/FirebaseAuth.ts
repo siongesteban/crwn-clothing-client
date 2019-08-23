@@ -1,4 +1,4 @@
-import { User, FirebaseUser, AuthCredentials } from 'types';
+import { User, FirebaseUser, AuthCredentials, SignupCredentials } from 'types';
 import { UserService } from 'services';
 import { BaseAuth } from 'services/auth';
 import { firebase } from 'services/clients';
@@ -96,7 +96,7 @@ export class FirebaseAuth extends BaseAuth<Client, User> {
     }
   }
 
-  async signUp(data: User & AuthCredentials) {
+  async signUp(data: SignupCredentials) {
     try {
       const { displayName, email, password } = data;
       const {

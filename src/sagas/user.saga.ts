@@ -1,12 +1,14 @@
 import { takeLatest, all, put, call } from 'redux-saga/effects';
 
-import { ActionType, User, SignInWithEmailStart } from 'types';
+import { ActionType, User, SignInWithEmailStart, SignUpStart } from 'types';
 import { FirebaseAuth } from 'services/auth';
 import {
   signInError,
   signInSuccess,
   signOutSuccess,
-  signOutError
+  signOutError,
+  signUpSuccess,
+  signUpError
 } from 'actions';
 
 export function* userSagas() {
@@ -14,6 +16,7 @@ export function* userSagas() {
     call(watchAuthenticateUser),
     call(watchSignInWithGoogle),
     call(watchSignInWithEmail),
+    call(watchSignUp),
     call(watchSignOut),
   ]);
 }
@@ -89,6 +92,38 @@ function* signInWithEmailWorker(action: SignInWithEmailStart) {
     console.error('@signInWithEmailWorker', message);
 
     yield put(signInError({ message }));
+  }
+}
+
+function* watchSignUp() {
+  yield takeLatest(ActionType.SIGN_UP_START, signUpWorker);
+}
+
+function* signUpWorker(action: SignUpStart) {
+  try {
+    const { data } = action.payload;
+    const { password, confirmPassword } = data;
+
+    if (password !== confirmPassword) {
+      throw new Error('Passwords did not match');
+    }
+
+    const auth = FirebaseAuth.getInstance();
+    const user: User = yield call(
+      {
+        context: auth,
+        fn: auth.signUp,
+      },
+      data,
+    );
+
+    yield put(signUpSuccess(user));
+  } catch (e) {
+    const { message } = e;
+
+    console.error('@signUpWorker', message);
+
+    yield put(signUpError({ message }));
   }
 }
 

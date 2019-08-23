@@ -1,5 +1,5 @@
 import { User, StateErrorPayload } from 'types';
-import { AuthCredentials } from 'types/auth.type';
+import { AuthCredentials, SignupCredentials } from 'types/auth.type';
 
 interface UserPayload {
   user: User;
@@ -11,6 +11,9 @@ export enum UserActionType {
   SIGN_IN_WITH_GOOGLE_START = '@@user/SIGN_IN_WITH_GOOGLE_START',
   SIGN_IN_SUCCESS = '@@user/SIGN_IN_SUCCESS',
   SIGN_IN_ERROR = '@@user/SIGN_IN_ERROR',
+  SIGN_UP_START = '@@user/SIGN_UP_START',
+  SIGN_UP_SUCCESS = '@@user/SIGN_UP_SUCCESS',
+  SIGN_UP_ERROR = '@@user/SIGN_UP_ERROR',
   SIGN_OUT_START = '@@user/SIGN_OUT_START',
   SIGN_OUT_SUCCESS = '@@user/SIGN_OUT_SUCCESS',
   SIGN_OUT_ERROR = '@@user/SIGN_OUT_ERROR',
@@ -39,6 +42,23 @@ export interface SignInError {
   payload: StateErrorPayload;
 }
 
+export interface SignUpStart {
+  type: UserActionType.SIGN_UP_START;
+  payload: {
+    data: SignupCredentials;
+  };
+}
+
+export interface SignUpSuccess {
+  type: UserActionType.SIGN_UP_SUCCESS;
+  payload: UserPayload;
+}
+
+export interface SignUpError {
+  type: UserActionType.SIGN_UP_ERROR;
+  payload: StateErrorPayload;
+}
+
 export interface SignOutStart {
   type: UserActionType.SIGN_OUT_START;
 }
@@ -58,6 +78,9 @@ export type UserAction =
   | SignInWithGoogleStart
   | SignInSuccess
   | SignInError
+  | SignUpStart
+  | SignUpSuccess
+  | SignUpError
   | SignOutStart
   | SignOutSuccess
   | SignOutError;

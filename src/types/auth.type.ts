@@ -6,3 +6,6 @@ export interface AuthCredentials {
 }
 
 export type AuthCallback<T = User> = (user: T | null) => void;
+
+export type SignupCredentials = User &
+  AuthCredentials & { confirmPassword: string };

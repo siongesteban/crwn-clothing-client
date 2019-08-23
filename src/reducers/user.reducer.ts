@@ -11,10 +11,12 @@ export const userReducer = (
 ): UserState => {
   switch (action.type) {
     case ActionType.SIGN_IN_SUCCESS:
+    case ActionType.SIGN_UP_SUCCESS:
       const { user } = action.payload;
       return { ...state, data: user, error: null };
-    case ActionType.SIGN_OUT_ERROR:
     case ActionType.SIGN_IN_ERROR:
+    case ActionType.SIGN_UP_ERROR:
+    case ActionType.SIGN_OUT_ERROR:
       const { error } = action.payload;
       return { ...state, error };
     case ActionType.SIGN_OUT_SUCCESS:
