@@ -5,27 +5,30 @@ import { Section } from 'types';
 
 import { S } from './MenuItem.style';
 
-type Props = Omit<Section, 'id'> & RouteComponentProps;
+type Props = RouteComponentProps & {
+  section: Section;
+};
 
-class _MenuItem extends React.Component<Props> {
-  handleClick = () => {
-    const { history, linkURL, match } = this.props;
+const C: React.FC<Props> = ({
+  history,
+  match,
+  section: { imageURL, linkURL, size, title },
+}) => {
+  const handleClick = () => {
     history.push(`${match.url}shop/${linkURL}`);
   };
 
-  render() {
-    const { imageURL, size, title } = this.props;
+  return (
+    <S.Wrapper size={size} onClick={handleClick}>
+      <S.BGImage imageURL={imageURL} />
+      <S.Content>
+        <S.Title>{title.toUpperCase()}</S.Title>
+        <S.Subtitle>SHOP NOW</S.Subtitle>
+      </S.Content>
+    </S.Wrapper>
+  );
+};
 
-    return (
-      <S.Wrapper size={size} onClick={this.handleClick}>
-        <S.BGImage imageURL={imageURL} />
-        <S.Content>
-          <S.Title>{title.toUpperCase()}</S.Title>
-          <S.Subtitle>SHOP NOW</S.Subtitle>
-        </S.Content>
-      </S.Wrapper>
-    );
-  }
-}
+const CWithRouter = withRouter(C);
 
-export const MenuItem = withRouter(_MenuItem);
+export const MenuItem = CWithRouter;

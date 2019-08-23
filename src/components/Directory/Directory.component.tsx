@@ -14,8 +14,8 @@ interface Props {
 
 const C: React.FC<Props> = ({ sections }) => (
   <S.Wrapper>
-    {sections.map(({ id, ...rest }) => (
-      <MenuItem key={id} {...rest} />
+    {sections.map(section => (
+      <MenuItem key={section.id} section={section} />
     ))}
   </S.Wrapper>
 );
