@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Route, RouteComponentProps } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
@@ -16,41 +16,33 @@ type Props = RouteComponentProps & {
 
 type DesiredSelection = Pick<Props, 'loading'>;
 
-class C extends React.Component<Props> {
-  componentDidMount() {
-    this.props.fetchCollections();
-  }
+const C: React.FC<Props> = ({ loading, match, fetchCollections }) => {
+  useEffect(() => {
+    fetchCollections();
+  }, [fetchCollections]);
 
-  renderCollectionOverview = (props: CollectionOverviewProps) => {
-    const { loading } = this.props;
+  const renderCollectionOverview = (props: CollectionOverviewProps) => (
+    <CollectionOverview loading={loading} {...props} />
+  );
 
-    return <CollectionOverview loading={loading} {...props} />;
-  };
+  const renderCollectionPage = (props: CollectionPageProps) => (
+    <CollectionPage loading={loading} {...props} />
+  );
 
-  renderCollectionPage = (props: CollectionPageProps) => {
-    const { loading } = this.props;
-
-    return <CollectionPage loading={loading} {...props} />;
-  };
-
-  render() {
-    const { match } = this.props;
-
-    return (
-      <>
-        <Route
-          exact={true}
-          path={`${match.path}`}
-          component={this.renderCollectionOverview}
-        />
-        <Route
-          path={`${match.path}/:collectionId`}
-          component={this.renderCollectionPage}
-        />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <Route
+        exact={true}
+        path={`${match.path}`}
+        component={renderCollectionOverview}
+      />
+      <Route
+        path={`${match.path}/:collectionId`}
+        component={renderCollectionPage}
+      />
+    </>
+  );
+};
 
 const mapStateToProps = createStructuredSelector<RootState, DesiredSelection>({
   loading: selectIsCollectionFetching,
