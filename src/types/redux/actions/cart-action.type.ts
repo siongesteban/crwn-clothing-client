@@ -5,6 +5,7 @@ export enum CartActionType {
   CLEAR_ITEM_FROM_CART = '@@cart/CLEAR_ITEM',
   REMOVE_ITEM_FROM_CART = '@@cart/REMOVE_ITEM',
   TOGGLE_CART = '@@cart/TOGGLE',
+  CLEAR_CART = '@@cart/CLEAR',
 }
 
 export interface ToggleCart {
@@ -29,8 +30,13 @@ export type RemoveItemFromCart = Pick<ClearItemFromCart, 'payload'> & {
   type: CartActionType.REMOVE_ITEM_FROM_CART;
 };
 
+export type ClearCart = {
+  type: CartActionType.CLEAR_CART;
+};
+
 export type CartAction =
   | ToggleCart
   | AddItemToCart
   | ClearItemFromCart
-  | RemoveItemFromCart;
+  | RemoveItemFromCart
+  | ClearCart;

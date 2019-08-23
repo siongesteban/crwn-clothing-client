@@ -5,7 +5,8 @@ import {
   AddItemToCart,
   ClearItemFromCart,
   RemoveItemFromCart,
-  ToggleCart
+  ToggleCart,
+  ClearCart
 } from 'types';
 
 export const addItemToCart = (item: Item): AddItemToCart => ({
@@ -25,4 +26,8 @@ export const removeItemFromCart = (id: CartItem['id']): RemoveItemFromCart => ({
 
 export const toggleCart = (): ToggleCart => ({
   type: ActionType.TOGGLE_CART,
+});
+
+export const clearCart = (): ClearCart => ({
+  type: ActionType.CLEAR_CART,
 });

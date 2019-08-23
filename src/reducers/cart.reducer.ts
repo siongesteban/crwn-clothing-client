@@ -37,6 +37,8 @@ export const cartReducer = (
         ...state,
         hidden: !state.hidden,
       };
+    case ActionType.CLEAR_CART:
+      return INITIAL_STATE;
     default:
       return state;
   }
