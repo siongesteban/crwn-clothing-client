@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { ObjectSet } from 'types';
 import { Button, Input } from 'components';
 import { signUp } from 'actions';
 
@@ -11,89 +10,71 @@ interface Props {
   signUp: typeof signUp;
 }
 
-interface State {
-  displayName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+const C: React.FC<Props> = ({ signUp }) => {
+  const [credentials, setCredentials] = useState({
+    displayName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
 
-type StateSet = ObjectSet<State>;
-
-class C extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      displayName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    };
-  }
-
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
 
-    this.setState({ [name]: value } as StateSet);
+    setCredentials({ ...credentials, [name]: value });
   };
 
-  handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const { signUp } = this.props;
-
-    signUp(this.state);
+    signUp(credentials);
   };
 
-  render() {
-    const { displayName, email, password, confirmPassword } = this.state;
+  const { displayName, email, password, confirmPassword } = credentials;
 
-    return (
-      <S.Wrapper>
-        <S.Title>I do not have an account</S.Title>
-        <span>Sign up with your email and password</span>
+  return (
+    <S.Wrapper>
+      <S.Title>I do not have an account</S.Title>
+      <span>Sign up with your email and password</span>
 
-        <form onSubmit={this.handleSubmit}>
-          <Input
-            handleChange={this.handleChange}
-            label="Display Name"
-            name="displayName"
-            required={true}
-            value={displayName}
-          />
-          <Input
-            handleChange={this.handleChange}
-            label="Email"
-            name="email"
-            required={true}
-            type="email"
-            value={email}
-          />
-          <Input
-            handleChange={this.handleChange}
-            label="Password"
-            name="password"
-            required={true}
-            type="password"
-            value={password}
-          />
-          <Input
-            handleChange={this.handleChange}
-            label="Confirm Password"
-            name="confirmPassword"
-            required={true}
-            type="password"
-            value={confirmPassword}
-          />
-          <S.Buttons>
-            <Button type="submit">Sign Up</Button>
-          </S.Buttons>
-        </form>
-      </S.Wrapper>
-    );
-  }
-}
+      <form onSubmit={handleSubmit}>
+        <Input
+          handleChange={handleChange}
+          label="Display Name"
+          name="displayName"
+          required={true}
+          value={displayName}
+        />
+        <Input
+          handleChange={handleChange}
+          label="Email"
+          name="email"
+          required={true}
+          type="email"
+          value={email}
+        />
+        <Input
+          handleChange={handleChange}
+          label="Password"
+          name="password"
+          required={true}
+          type="password"
+          value={password}
+        />
+        <Input
+          handleChange={handleChange}
+          label="Confirm Password"
+          name="confirmPassword"
+          required={true}
+          type="password"
+          value={confirmPassword}
+        />
+        <S.Buttons>
+          <Button type="submit">Sign Up</Button>
+        </S.Buttons>
+      </form>
+    </S.Wrapper>
+  );
+};
 
 const dispatchProps = { signUp };
 
