@@ -2,10 +2,46 @@ import { takeLatest, all, put, call } from 'redux-saga/effects';
 
 import { ActionType, User, SignInWithEmailStart } from 'types';
 import { FirebaseAuth } from 'services/auth';
-import { signInError, signInSuccess } from 'actions';
+import {
+  signInError,
+  signInSuccess,
+  signOutSuccess,
+  signOutError
+} from 'actions';
 
 export function* userSagas() {
-  yield all([call(watchSignInWithGoogle), call(watchSignInWithEmail)]);
+  yield all([
+    call(watchAuthenticateUser),
+    call(watchSignInWithGoogle),
+    call(watchSignInWithEmail),
+    call(watchSignOut),
+  ]);
+}
+
+function* watchAuthenticateUser() {
+  yield takeLatest(ActionType.AUTHENTICATE_USER, authenticateUserWorker);
+}
+
+function* authenticateUserWorker() {
+  try {
+    const auth = FirebaseAuth.getInstance();
+    const user: User | null = yield call({
+      context: auth,
+      fn: auth.authenticate,
+    });
+
+    if (!user) {
+      return;
+    }
+
+    yield put(signInSuccess(user));
+  } catch (e) {
+    const { message } = e;
+
+    console.error('@authenticateUserWorker', message);
+
+    yield put(signInError({ message }));
+  }
 }
 
 function* watchSignInWithGoogle() {
@@ -53,5 +89,27 @@ function* signInWithEmailWorker(action: SignInWithEmailStart) {
     console.error('@signInWithEmailWorker', message);
 
     yield put(signInError({ message }));
+  }
+}
+
+function* watchSignOut() {
+  yield takeLatest(ActionType.SIGN_OUT_START, signOutWorker);
+}
+
+function* signOutWorker() {
+  try {
+    const auth = FirebaseAuth.getInstance();
+    yield call({
+      context: auth,
+      fn: auth.signOut,
+    });
+
+    yield put(signOutSuccess());
+  } catch (e) {
+    const { message } = e;
+
+    console.error('@signOutWorker', message);
+
+    yield put(signOutError({ message }));
   }
 }

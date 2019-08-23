@@ -1,4 +1,4 @@
-import { User, FirebaseUser, AuthCallback, AuthCredentials } from 'types';
+import { User, FirebaseUser, AuthCredentials } from 'types';
 import { UserService } from 'services';
 import { BaseAuth } from 'services/auth';
 import { firebase } from 'services/clients';
@@ -13,7 +13,7 @@ interface Provider {
 
 type Client = firebase.auth.Auth;
 
-export class FirebaseAuth extends BaseAuth<Client, void> {
+export class FirebaseAuth extends BaseAuth<Client, User> {
   private static instance: FirebaseAuth;
   protected client: Client;
   private provider: Provider;
@@ -39,37 +39,26 @@ export class FirebaseAuth extends BaseAuth<Client, void> {
     return FirebaseAuth.instance;
   }
 
-  async authenticate(callback: AuthCallback): Promise<void> {
-    return new Promise(resolve => {
-      let user: User | null;
-
-      this.unsubscribeFromAuth = this.client.onAuthStateChanged(
+  async authenticate() {
+    return new Promise<User | null>((resolve, reject) => {
+      const unsubscribeFromAuth = this.client.onAuthStateChanged(
         async (firebaseUser: FirebaseUser) => {
-          if (!firebaseUser) {
-            user = null;
-          } else {
-            const { displayName, email, uid } = firebaseUser;
+          try {
+            unsubscribeFromAuth();
 
-            user = {
-              uid,
-              displayName,
-              email,
-            } as User;
-
-            let userFromDB = await this.userService.get(uid);
-
-            if (!userFromDB) {
-              userFromDB = await this.userService.create(user);
+            if (!firebaseUser) {
+              resolve(null);
+            } else {
+              const user = await this.getUser(firebaseUser as User);
+              resolve(user);
             }
-
-            user = userFromDB;
+          } catch (e) {
+            console.error('@FirebaseAuth::authenticate', e.message);
+            resolve(null);
           }
-
-          callback(user);
         },
+        reject,
       );
-
-      resolve();
     });
   }
 
@@ -110,21 +99,19 @@ export class FirebaseAuth extends BaseAuth<Client, void> {
   async signUp(data: User & AuthCredentials) {
     try {
       const { displayName, email, password } = data;
-      const result = await this.client.createUserWithEmailAndPassword(
-        email,
-        password,
-      );
-      const user = result.user;
+      const {
+        user: firebaseUser,
+      } = await this.client.createUserWithEmailAndPassword(email, password);
 
-      if (user) {
-        await this.userService.create({
-          email,
-          displayName,
-          uid: user.uid,
-        });
-      }
+      const newUser = await this.getUser({
+        ...firebaseUser,
+        displayName,
+      } as User);
+
+      return newUser;
     } catch (e) {
       console.error('@FirebaseAuth::signUp', e.message);
+      return null;
     }
   }
 

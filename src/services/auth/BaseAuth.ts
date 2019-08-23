@@ -1,10 +1,10 @@
-import { AuthCredentials, AuthCallback, User } from 'types';
+import { AuthCredentials, User } from 'types';
 
 export abstract class BaseAuth<T, K = User> {
   protected abstract client: T;
 
-  abstract async authenticate(callback?: AuthCallback): Promise<K>;
+  abstract async authenticate(): Promise<K | null>;
   // abstract async signIn(credentials?: AuthCredentials): Promise<K>;
-  abstract async signUp(credentials?: AuthCredentials): Promise<K>;
+  abstract async signUp(credentials?: AuthCredentials): Promise<K | null>;
   abstract async signOut(): Promise<void>;
 }

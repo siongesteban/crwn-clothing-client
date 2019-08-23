@@ -6,8 +6,16 @@ import {
   SignInWithGoogleStart,
   StateError,
   AuthCredentials,
-  SignInSuccess
+  SignInSuccess,
+  AuthenticateUser,
+  SignOutStart,
+  SignOutSuccess,
+  SignOutError
 } from 'types';
+
+export const authenticateUser = (): AuthenticateUser => ({
+  type: ActionType.AUTHENTICATE_USER,
+});
 
 export const signInWithEmail = (
   credentials: AuthCredentials,
@@ -27,5 +35,18 @@ export const signInSuccess = (user: User): SignInSuccess => ({
 
 export const signInError = (error: StateError): SignInError => ({
   type: ActionType.SIGN_IN_ERROR,
+  payload: { error },
+});
+
+export const signOut = (): SignOutStart => ({
+  type: ActionType.SIGN_OUT_START,
+});
+
+export const signOutSuccess = (): SignOutSuccess => ({
+  type: ActionType.SIGN_OUT_SUCCESS,
+});
+
+export const signOutError = (error: StateError): SignOutError => ({
+  type: ActionType.SIGN_OUT_ERROR,
   payload: { error },
 });

@@ -13,9 +13,12 @@ export const userReducer = (
     case ActionType.SIGN_IN_SUCCESS:
       const { user } = action.payload;
       return { ...state, data: user, error: null };
+    case ActionType.SIGN_OUT_ERROR:
     case ActionType.SIGN_IN_ERROR:
       const { error } = action.payload;
       return { ...state, error };
+    case ActionType.SIGN_OUT_SUCCESS:
+      return INITIAL_STATE;
     default:
       return state;
   }
