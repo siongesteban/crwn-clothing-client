@@ -1,44 +1,60 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# crwn-clothing-client
 
-## Available Scripts
+> A simple E-commerce app built with React written in Typescript.
 
-In the project directory, you can run:
+Based on the app project from this great Udemy course [Complete React Developer in 2019 (w/ Redux, Hooks, GraphQL)](https://www.udemy.com/complete-react-developer-zero-to-mastery/) and originally written in JavaScript.
 
-### `npm start`
+This app was built during the course but with a different, or might be a better approach on things such as project structure (file/folder), naming conventions, services, etc.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Check out the [repo](https://github.com/ZhangMYihua/lesson-34) of the original project.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Run Locally
+```
+git clone https://github.com/siongesteban/crwn-clothing-client.git
 
-### `npm test`
+cd crwn-clothing-client
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+npm i
 
-### `npm run build`
+npm start
+```
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Key Libraries
+* [firebase](https://firebase.google.com/docs/web/setup)
+* [redux](https://github.com/reduxjs/redux)
+* [redux-logger](https://github.com/LogRocket/redux-logger)
+* [redux-persist](https://github.com/rt2zz/redux-persist)
+* [redux-saga](https://github.com/redux-saga/redux-saga)
+* [reselect](https://github.com/reduxjs/reselect)
+* [styled-components](https://github.com/styled-components/styled-components)
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### Firebase
+Follow [this guide](https://firebase.google.com/docs/web/setup) to create your own Firebase config.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Stripe
+The app uses Stripe as its payment API. You can get your own `publishable_key` by signing up an account.
 
-### `npm run eject`
+### Payment Server
+The [payment server](https://github.com/siongesteban/crwn-clothing-payment-server) should be running in order for the payment submission to work.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Environment Variables
+```
+# Create files:
+#  .env.development (required)
+#  .env.production
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Firebase
+REACT_APP_FIREBASE_API_KEY="abc"
+REACT_APP_FIREBASE_APP_ID="abc"
+REACT_APP_FIREBASE_AUTH_DOMAIN="abc.com"
+REACT_APP_FIREBASE_DATABASE_URL="abcd.com"
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID="123"
+REACT_APP_FIREBASE_PROJECT_ID="app"
+REACT_APP_FIREBASE_STORAGE_BUCKET="" # optional
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# Stripe
+REACT_APP_STRIPE_PUBLISHABLE_KEY="key"
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Payment Service
+REACT_APP_PAYMENT_SERVICE_BASE_URL="http://localhost:3001/" # Please include forward slash at the end!
+```
