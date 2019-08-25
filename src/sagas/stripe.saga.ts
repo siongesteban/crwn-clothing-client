@@ -1,17 +1,19 @@
-import { takeLatest, all, call } from 'redux-saga/effects';
+import { takeLatest, all, call, put } from 'redux-saga/effects';
 
-import { ActionType, CreatePayment } from 'types';
+import { ActionType, CreatePaymentStart } from 'types';
 import { PaymentService } from 'services';
+import { history } from 'utils';
+import { createPaymentSuccess } from 'actions';
 
 export function* stripeSagas() {
   yield all([call(watchCreatePayment)]);
 }
 
 function* watchCreatePayment() {
-  yield takeLatest(ActionType.CREATE_PAYMENT, createPaymentWorker);
+  yield takeLatest(ActionType.CREATE_PAYMENT_START, createPaymentWorker);
 }
 
-function* createPaymentWorker(action: CreatePayment) {
+function* createPaymentWorker(action: CreatePaymentStart) {
   try {
     const {
       payload: { data },
@@ -24,6 +26,10 @@ function* createPaymentWorker(action: CreatePayment) {
     );
 
     alert('Payment successful');
+
+    yield put(createPaymentSuccess());
+
+    history.push('/');
   } catch (e) {
     console.error('@createPaymentWorker', e.message);
     alert(

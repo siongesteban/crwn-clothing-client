@@ -1,14 +1,19 @@
 import { Payment } from 'types';
 
 export enum StripeActionType {
-  CREATE_PAYMENT = '@@stripe/CREATE_PAYMENT',
+  CREATE_PAYMENT_START = '@@stripe/CREATE_PAYMENT_START',
+  CREATE_PAYMENT_SUCCESS = '@@stripe/CREATE_PAYMENT_SUCCESS',
 }
 
-export interface CreatePayment {
-  type: StripeActionType.CREATE_PAYMENT;
+export interface CreatePaymentStart {
+  type: StripeActionType.CREATE_PAYMENT_START;
   payload: {
     data: Payment;
   };
 }
 
-export type StripeAction = CreatePayment;
+export interface CreatePaymentSuccess {
+  type: StripeActionType.CREATE_PAYMENT_SUCCESS;
+}
+
+export type StripeAction = CreatePaymentStart | CreatePaymentSuccess;

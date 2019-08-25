@@ -1,6 +1,9 @@
 import { CSSProperties } from 'react';
+import { createBrowserHistory } from 'history';
 
 import { CartItem } from 'types';
+
+export const history = createBrowserHistory();
 
 export const createBGImageStyle = (imageURL: string): CSSProperties => ({
   backgroundImage: `url(${imageURL})`,

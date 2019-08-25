@@ -37,6 +37,7 @@ export const cartReducer = (
         ...state,
         hidden: !state.hidden,
       };
+    case ActionType.CREATE_PAYMENT_SUCCESS:
     case ActionType.CLEAR_CART:
       return INITIAL_STATE;
     default:

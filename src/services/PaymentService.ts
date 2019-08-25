@@ -18,7 +18,7 @@ export class PaymentService {
   async createPayment(data: Payment): Promise<PaymentResponse | undefined> {
     try {
       const response = await axios.post<PaymentResponse>(
-        `${this.baseURL}/payment`,
+        `${this.baseURL}payment`,
         data,
       );
 
@@ -33,6 +33,8 @@ export class PaymentService {
 
         throw new Error(message);
       }
+
+      throw e;
     }
   }
 }
