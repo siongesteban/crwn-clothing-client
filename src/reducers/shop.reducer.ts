@@ -4,6 +4,7 @@ const INITIAL_STATE: ShopState = {
   collections: null,
   isFetching: false,
   error: null,
+  paymentInProgress: false,
 };
 
 export const shopReducer = (
@@ -19,6 +20,11 @@ export const shopReducer = (
     case ActionType.FETCH_COLLECTIONS_ERROR:
       const { error } = action.payload;
       return { ...state, error, isFetching: false };
+    case ActionType.CREATE_PAYMENT_START:
+      return { ...state, paymentInProgress: true };
+    case ActionType.CREATE_PAYMENT_SUCCESS:
+    case ActionType.CREATE_PAYMENT_ERROR:
+      return { ...state, paymentInProgress: false };
     default:
       return state;
   }

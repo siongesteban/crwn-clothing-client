@@ -38,6 +38,7 @@ export type ShopState = DeepReadonly<{
   collections: Collections | null;
   isFetching: boolean;
   error: StateError | null;
+  paymentInProgress: boolean;
 }>;
 
 export type UserState = DeepReadonly<{

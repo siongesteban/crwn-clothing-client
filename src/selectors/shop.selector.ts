@@ -27,3 +27,8 @@ export const selectIsCollectionFetching = createSelector(
   [selectShop],
   ({ isFetching }) => isFetching,
 );
+
+export const selectPaymentInProgress = createSelector(
+  [selectShop],
+  ({ paymentInProgress }) => paymentInProgress,
+);
