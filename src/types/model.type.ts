@@ -1,3 +1,6 @@
+import { charges } from 'stripe';
+import { Token } from 'react-stripe-checkout';
+
 export enum SectionSize {
   LARGE = 'large',
 }
@@ -48,3 +51,12 @@ export type User = Model & {
   displayName: string;
   email: string;
 };
+
+export interface Payment {
+  amount: number;
+  token: Token;
+}
+
+export interface PaymentResponse {
+  data: charges.ICharge;
+}
