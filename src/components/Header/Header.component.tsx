@@ -35,7 +35,7 @@ const _Header: React.FC<Props> = ({
   isAuthenticated,
   signOut,
 }) => (
-  <S.Header>
+  <S.Wrapper>
     <S.Logo to="/">
       <Logo />
     </S.Logo>
@@ -51,7 +51,7 @@ const _Header: React.FC<Props> = ({
       <CartIcon />
     </S.Options>
     {!cartIsHidden && <CartDropdown />}
-  </S.Header>
+  </S.Wrapper>
 );
 
 const mapStateToProps = createStructuredSelector<RootState, DesiredSelection>({

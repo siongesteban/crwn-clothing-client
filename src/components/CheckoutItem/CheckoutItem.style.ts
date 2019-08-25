@@ -8,6 +8,10 @@ const Wrapper = styled.div`
   padding: 15px 0;
   font-size: 20px;
   align-items: center;
+
+  @media screen and (max-width: 800px) {
+    font-size: 18px;
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -22,6 +26,10 @@ const ImageWrapper = styled.div`
 
 const Text = styled.span`
   width: 23%;
+
+  @media screen and (max-width: 800px) {
+    width: 22%;
+  }
 `;
 
 const QuantityWrapper = styled(Text)`

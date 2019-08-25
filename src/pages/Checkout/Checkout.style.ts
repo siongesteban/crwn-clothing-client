@@ -11,7 +11,11 @@ export const S = {
 
     button {
       margin-left: auto;
-      margin-top: 30px;
+      margin-top: 50px;
+    }
+
+    @media screen and (max-width: 800px) {
+      width: 90%;
     }
   `,
   HeaderWrapper: styled.div`
@@ -27,6 +31,14 @@ export const S = {
 
     &:last-child {
       width: 8%;
+    }
+
+    @media screen and (max-width: 800px) {
+      width: 22%;
+
+      &:last-child {
+        width: 12%;
+      }
     }
   `,
   Total: styled.div`
