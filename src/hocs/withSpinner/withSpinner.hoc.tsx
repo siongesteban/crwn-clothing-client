@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { S } from './withSpinner.style';
+import { SpinnerOverlay } from 'components';
 
 interface Props {
   loading: boolean;
@@ -9,10 +9,4 @@ interface Props {
 export const withSpinner = <P extends object>(
   Component: React.ComponentType<P>,
 ): React.FC<P & Props> => ({ loading, ...props }) =>
-  loading ? (
-    <S.Overlay>
-      <S.Container />
-    </S.Overlay>
-  ) : (
-    <Component {...props as P} />
-  );
+  loading ? <SpinnerOverlay /> : <Component {...(props as P)} />;
