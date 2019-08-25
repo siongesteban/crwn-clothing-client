@@ -20,10 +20,6 @@ const items: HeaderItem[] = [
     path: '/shop',
     text: 'Shop',
   },
-  {
-    path: '/contact',
-    text: 'Contact',
-  },
 ];
 
 interface Props {
